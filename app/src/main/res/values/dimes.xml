@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="primaryFont">15sp</dimen>
+    <dimen name="secondaryFont">13sp</dimen>
+    <dimen name="heading">22sp</dimen>
+    <dimen name="subHeading">18sp</dimen>
+
+
+</resources>

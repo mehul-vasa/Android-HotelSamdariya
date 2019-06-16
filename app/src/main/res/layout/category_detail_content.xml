@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".HotelPage"
+    tools:showIn="@layout/activity_category_details">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="About"
+            android:textSize="@dimen/primaryFont"
+            android:textStyle="bold"
+            android:textColor="@color/fontPrimary"/>
+
+        <WebView
+            android:id="@+id/category_about_webview"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="wrap_content">
+
+        </WebView>
+
+        <Button
+            android:id="@+id/category_bookBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/background"
+            android:text="Book Now"
+            android:textStyle="bold"
+            android:textColor="@color/fontWhite"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

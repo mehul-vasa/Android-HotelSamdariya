@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="false"
+        >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/adapter_testimonial_nameTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/primaryFont"
+                    android:textColor="@color/fontPrimary"
+                    android:text="Name here"
+                    />
+
+                <RatingBar
+                    android:id="@+id/adapter_testimonial_ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:numStars="5"
+                    style="?android:attr/ratingBarStyleSmall"
+                    />
+
+                <TextView
+                    android:id="@+id/adapter_testimonial_commentTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="testimonial text here"
+                    android:textSize="@dimen/secondaryFont"
+                    android:textStyle="normal"
+                    android:textColor="@color/fontPrimary"
+                    />
+
+
+
+
+            </LinearLayout>
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dashboard_scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    >
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/dashboard_topCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="false"
+        android:focusedByDefault="true"
+        >
+        <!--app:cardBackgroundColor="@drawable/dashboard_background"-->
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:background="@drawable/dashboard_background"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-- Search Hotels --"
+                    android:textSize="@dimen/primaryFont"
+                    android:textColor="@color/fontWhite"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/dashboard_hotels_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fontPrimary"
+                    android:layout_margin="5dp"
+                    />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/dashboard_bottomsheet_category_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fontPrimary"
+                    android:layout_margin="5dp"
+                    android:visibility="gone"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_marginTop="20dp">
+
+                    <RelativeLayout
+                        android:id="@+id/dashboard_checkIn_lay"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_border"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/dashboard_checkIn_icon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_checkin_white"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/dashboard_checkIn_header"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Check-In"
+                            android:textSize="@dimen/primaryFont"
+                            android:textStyle="bold"
+                            android:textColor="@color/fontWhite"
+                            android:layout_toRightOf="@+id/dashboard_checkIn_icon"
+                            />
+
+                        <TextView
+                            android:id="@+id/dashboard_checkInDate_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Check-In"
+                            android:textSize="@dimen/secondaryFont"
+                            android:textColor="@color/fontWhite"
+                            android:layout_toRightOf="@+id/dashboard_checkIn_icon"
+                            android:layout_below="@+id/dashboard_checkIn_header"
+
+                            />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/dashboard_checkOut_lay"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_border"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/dashboard_checkOut_icon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_checkout_white"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/dashboard_checkOut_header"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Check-Out"
+                            android:textSize="@dimen/primaryFont"
+                            android:textStyle="bold"
+                            android:textColor="@color/fontWhite"
+                            android:layout_toRightOf="@+id/dashboard_checkOut_icon"
+                            />
+
+                        <TextView
+                            android:id="@+id/dashboard_checkOutDate_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Check-Out"
+                            android:textSize="@dimen/secondaryFont"
+                            android:textColor="@color/fontWhite"
+                            android:layout_toRightOf="@+id/dashboard_checkOut_icon"
+                            android:layout_below="@+id/dashboard_checkOut_header"
+
+                            />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        android:id="@+id/dashboard_bottomSheet_personLay"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Person"
+                            android:textSize="@dimen/primaryFont"
+                            android:textStyle="bold"
+                            android:textColor="@color/fontWhite"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="10dp"
+                            />
+
+                        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+                            android:id="@+id/dashboard_bottomSheet_personPicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/number_picker_bg_color"
+                            app:snp_buttonBackgroundTintSelector="@color/white"
+                            app:snp_buttonTouchScaleFactor="0.8"
+                            app:snp_orientation="horizontal"
+                            app:snp_valueMarginEnd="5dp"
+                            app:snp_valueMarginStart="5dp"
+                            app:snp_value_text_color="@color/white"
+                            app:snp_value_text_size="@dimen/primaryFont"
+                            app:snp_value_text_appearance="@style/QtyPickerTextAppearance"
+                            app:snp_buttonPaddingBottom="8dp"
+                            app:snp_buttonPaddingLeft="8dp"
+                            app:snp_buttonPaddingRight="8dp"
+                            app:snp_buttonPaddingTop="8dp"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/dashboard_bottomSheet_roomLay"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Room"
+                            android:textSize="@dimen/primaryFont"
+                            android:textStyle="bold"
+                            android:textColor="@color/fontWhite"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="10dp"
+                            />
+
+                        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+                            android:id="@+id/dashboard_bottomSheet_roomPicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/number_picker_bg_color"
+                            app:snp_buttonBackgroundTintSelector="@color/white"
+                            app:snp_buttonTouchScaleFactor="0.8"
+                            app:snp_orientation="horizontal"
+                            app:snp_valueMarginEnd="5dp"
+                            app:snp_valueMarginStart="5dp"
+                            app:snp_value_text_size="@dimen/primaryFont"
+                            app:snp_value_text_appearance="@style/QtyPickerTextAppearance"
+                            app:snp_buttonPaddingBottom="8dp"
+                            app:snp_buttonPaddingLeft="8dp"
+                            app:snp_buttonPaddingRight="8dp"
+                            app:snp_buttonPaddingTop="8dp"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/dashboard_searchBox_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/white_border"
+                    android:text="Submit"
+                    android:textStyle="bold"
+                    android:textColor="@color/fontWhite"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Banquets"
+            android:textSize="@dimen/primaryFont"
+            android:textColor="@color/fontPrimary"
+            android:textStyle="bold"
+            android:layout_margin="10dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/dashboard_banquetList"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="visible"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hotels"
+            android:textSize="@dimen/primaryFont"
+            android:textColor="@color/fontPrimary"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/dashboard_featuredImageList"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="gone"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/dashboard_offerHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Offers"
+            android:textSize="@dimen/primaryFont"
+            android:textColor="@color/fontPrimary"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:layout_margin="10dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/dashboard_offerList"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <!--<include layout="@layout/dashboard_content" />-->
+
+</LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

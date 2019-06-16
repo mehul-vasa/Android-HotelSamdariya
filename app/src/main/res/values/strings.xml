@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Hotel Samdariya</string>
+
+    <string name="noInternetMsg"> No Internet Connection! </string>
+    <string name="slowInternetMsg"> Slow Internet Connection! Please Try Again Later! </string>
+
+    <string name="placeholder"> Placeholder String </string>
+    <string name="welcome"> Welcome, </string>
+
+    <!--MENU-->
+    <string name="home">Home</string>
+    <string name="hotel">Hotels</string>
+    <string name="banquetHalls">Banquet Halls</string>
+    <string name="aboutUs">About Us</string>
+    <string name="contactUs">Contact Us</string>
+    <string name="logout">Logout</string>
+    <!--MENU-->
+
+
+</resources>

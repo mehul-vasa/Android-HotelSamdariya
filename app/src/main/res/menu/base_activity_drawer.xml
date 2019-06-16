@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/home"
+            android:icon="@drawable/ic_dashboard"
+            />
+
+        <item
+            android:id="@+id/nav_hotel"
+            android:title="@string/hotel"
+            android:icon="@drawable/ic_hotels"
+            />
+
+        <item
+            android:id="@+id/nav_banquet"
+            android:title="@string/banquetHalls"
+            android:icon="@drawable/ic_banquet"
+            />
+
+        <item
+            android:id="@+id/nav_about"
+            android:title="@string/aboutUs"
+            android:visible="false"
+            />
+
+        <item
+            android:id="@+id/nav_contact"
+            android:title="@string/contactUs"
+            android:icon="@drawable/ic_help"
+            />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="@string/logout"
+            android:icon="@drawable/ic_logout"
+            />
+
+    </group>
+
+</menu>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

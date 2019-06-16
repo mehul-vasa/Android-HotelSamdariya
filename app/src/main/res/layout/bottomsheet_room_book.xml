@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:background="@drawable/background"
+        >
+
+        <TextView
+            android:id="@+id/fees_bottomSheet_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/primaryFont"
+            android:padding="10dp"
+            android:text="Book Room"
+            android:textColor="@color/fontWhite"
+            />
+
+        <ImageView
+            android:id="@+id/fees_bottomSheet_crossBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_close"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/dashboard_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Primary Guest Name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/dashboard_contact_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Primary Guest Contact Number"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:visibility="gone"
+        android:layout_marginTop="20dp">
+
+        <RelativeLayout
+            android:id="@+id/dashboard_checkIn_lay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/black_border"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            >
+
+            <ImageView
+                android:id="@+id/dashboard_checkIn_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_checkin_white"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:tint="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/dashboard_checkIn_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check-In"
+                android:textSize="@dimen/primaryFont"
+                android:textStyle="bold"
+                android:textColor="@color/fontPrimary"
+                android:layout_toRightOf="@+id/dashboard_checkIn_icon"
+                />
+
+            <TextView
+                android:id="@+id/dashboard_checkInDate_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check-In"
+                android:textSize="@dimen/secondaryFont"
+                android:textColor="@color/fontPrimary"
+                android:layout_toRightOf="@+id/dashboard_checkIn_icon"
+                android:layout_below="@+id/dashboard_checkIn_header"
+
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/dashboard_checkOut_lay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/black_border"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            >
+
+            <ImageView
+                android:id="@+id/dashboard_checkOut_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_checkout_white"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:tint="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/dashboard_checkOut_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check-Out"
+                android:textSize="@dimen/primaryFont"
+                android:textStyle="bold"
+                android:textColor="@color/fontPrimary"
+                android:layout_toRightOf="@+id/dashboard_checkOut_icon"
+                />
+
+            <TextView
+                android:id="@+id/dashboard_checkOutDate_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check-Out"
+                android:textSize="@dimen/secondaryFont"
+                android:textColor="@color/fontPrimary"
+                android:layout_toRightOf="@+id/dashboard_checkOut_icon"
+                android:layout_below="@+id/dashboard_checkOut_header"
+
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:visibility="gone"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:id="@+id/dashboard_bottomSheet_personLay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Person"
+                android:textSize="@dimen/primaryFont"
+                android:textStyle="bold"
+                android:textColor="@color/fontPrimary"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                />
+
+            <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+                android:id="@+id/dashboard_bottomSheet_personPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/number_picker_black_color"
+                app:snp_buttonBackgroundTintSelector="@color/black"
+                app:snp_buttonTouchScaleFactor="0.8"
+                app:snp_orientation="horizontal"
+                app:snp_valueMarginEnd="5dp"
+                app:snp_valueMarginStart="5dp"
+                app:snp_value_text_color="@color/fontPrimary"
+                app:snp_value_text_size="@dimen/primaryFont"
+                app:snp_value_text_appearance="@style/QtyPickerTextAppearance"
+                app:snp_buttonPaddingBottom="8dp"
+                app:snp_buttonPaddingLeft="8dp"
+                app:snp_buttonPaddingRight="8dp"
+                app:snp_buttonPaddingTop="8dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dashboard_bottomSheet_roomLay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Room"
+                android:textSize="@dimen/primaryFont"
+                android:textStyle="bold"
+                android:textColor="@color/fontPrimary"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                />
+
+            <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+                android:id="@+id/dashboard_bottomSheet_roomPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/number_picker_black_color"
+                app:snp_buttonBackgroundTintSelector="@color/black"
+                app:snp_buttonTouchScaleFactor="0.8"
+                app:snp_orientation="horizontal"
+                app:snp_valueMarginEnd="5dp"
+                app:snp_valueMarginStart="5dp"
+                app:snp_value_text_size="@dimen/primaryFont"
+                app:snp_value_text_color="@color/fontPrimary"
+                app:snp_value_text_appearance="@style/QtyPickerTextAppearance"
+                app:snp_buttonPaddingBottom="8dp"
+                app:snp_buttonPaddingLeft="8dp"
+                app:snp_buttonPaddingRight="8dp"
+                app:snp_buttonPaddingTop="8dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taxable Amount"
+                android:textSize="@dimen/subHeading"
+                android:textColor="@color/fontPrimary"
+                android:layout_marginRight="20sp"
+                android:padding="5dp"
+                />
+
+            <TextView
+                android:id="@+id/dashboard_taxLabelTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tax"
+                android:textSize="@dimen/subHeading"
+                android:textColor="@color/fontPrimary"
+                android:layout_marginRight="20sp"
+                android:padding="5dp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                android:textStyle="bold"
+                android:textSize="@dimen/heading"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginRight="20sp"
+                android:padding="5dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dashboard_roomAmtTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/subHeading"
+                android:textColor="@color/fontPrimary"
+                android:layout_marginLeft="20sp"
+                android:gravity="right"
+                android:padding="5dp"
+                />
+
+            <TextView
+                android:id="@+id/dashboard_taxAmtTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/subHeading"
+                android:textColor="@color/fontPrimary"
+                android:layout_marginLeft="20sp"
+                android:gravity="left"
+                android:padding="5dp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/dashboard_totalAmtTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/heading"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginLeft="20sp"
+                android:gravity="left"
+                android:padding="5dp"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dashboard_searchBox_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/black_border"
+        android:text="Submit"
+        android:textStyle="bold"
+        android:textColor="@color/fontPrimary"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        />
+
+</LinearLayout>
+

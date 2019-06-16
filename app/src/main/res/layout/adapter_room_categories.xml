@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/adapter_category_viewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:outlineAmbientShadowColor="@color/fontPrimary"
+        android:outlineSpotShadowColor="@color/fontPrimary"
+        android:clipToPadding="true"
+        android:clipChildren="false"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/adapter_category_imageIV"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:src="@color/grey"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/adapter_category_nameTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delux Room"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:textColor="@color/fontPrimary"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_toLeftOf="@+id/adapter_category_imageIV"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/adapter_category_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="room details"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:textColor="@color/fontPrimary"
+                    android:layout_toLeftOf="@+id/adapter_category_imageIV"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_below="@+id/adapter_category_nameTV"
+                    android:layout_marginTop="10dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:padding="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/adapter_category_terifTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 1250 /-"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:textColor="@color/fontPrimary"
+                    android:textSize="@dimen/subHeading"
+                    android:textStyle="bold"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    />
+
+                <Button
+                    android:id="@+id/adapter_category_bookBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Book Now"
+                    android:background="@drawable/background"
+                    android:textColor="@color/fontWhite"
+                    android:textSize="@dimen/secondaryFont"
+                    android:layout_alignParentRight="true"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"
+                android:layout_marginTop="0dp"
+                />
+
+        </LinearLayout>
+
+
+        
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

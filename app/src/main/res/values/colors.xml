@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ad0e12</color>
+    <color name="colorPrimaryDark">#ad0e12</color>
+    <color name="colorAccent">#daa520</color>
+
+    <color name="grey">#CECDCD</color>
+
+    //FONT COLOURS
+    <color name="fontWhite">#FFFFFF</color>
+    <color name="link">#0878EE</color>
+    <color name="fontPrimary">#000000</color>
+    //FONT COLOURS
+
+
+    <color name="white">#FFFFFF</color>
+    <color name="drawerIndicatorColour">#ad0e12</color>
+    <color name="transparent">#00FFFFFF</color>
+
+
+
+</resources>
