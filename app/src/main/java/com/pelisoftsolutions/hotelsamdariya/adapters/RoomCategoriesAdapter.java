@@ -11,6 +11,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,7 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
     private Activity context;
     private ArrayList<String> catIdList;
     private ArrayList<String> catNameList;
+    private ArrayList<String> catDescList;
     private ArrayList<String> catImageList;
     private ArrayList<String> roomCatTerifList;
     private String source;
@@ -65,12 +67,13 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
 
     private String selectedCheckInDate = "", selectedCheckOutDate = "", selectedPersonQty = "", selectedRoomQty = "";
 
-    public RoomCategoriesAdapter(Activity hotelPage, ArrayList<String> roomCatIdList, ArrayList<String> roomCatNameList, ArrayList<String> roomCatImageList,
+    public RoomCategoriesAdapter(Activity hotelPage, ArrayList<String> roomCatIdList, ArrayList<String> roomCatNameList, ArrayList<String> roomCatDescList, ArrayList<String> roomCatImageList,
                                  ArrayList<String> roomCatTerifList, String source, String hotelId, String bookingData) {
 
         this.context = hotelPage;
         this.catIdList = roomCatIdList;
         this.catNameList = roomCatNameList;
+        this.catDescList = roomCatDescList;
         this.catImageList = roomCatImageList;
         this.roomCatTerifList = roomCatTerifList;
         this.source = source;
@@ -82,7 +85,7 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
 
-        public TextView categoryNameTV, categoryTerifTV;
+        public TextView categoryNameTV, categoryTerifTV, categoryDetailsTV;
         public ImageView categoryImageIV;
         public RelativeLayout viewContainer;
         public Button bookBtn;
@@ -91,6 +94,7 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
             super(view);
 
             categoryNameTV = (TextView) view.findViewById(R.id.adapter_category_nameTV);
+            categoryDetailsTV = (TextView) view.findViewById(R.id.adapter_category_details);
             categoryTerifTV = (TextView) view.findViewById(R.id.adapter_category_terifTV);
             categoryImageIV = (ImageView) view.findViewById(R.id.adapter_category_imageIV);
             viewContainer = (RelativeLayout) view.findViewById(R.id.adapter_category_viewContainer);
@@ -113,6 +117,7 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
 
         holder.categoryNameTV.setText(catNameList.get(position));
         holder.categoryTerifTV.setText("Rs." + roomCatTerifList.get(position) +"/-");
+        holder.categoryDetailsTV.setText(Html.fromHtml(catDescList.get(position)));
 
         Picasso.with(context).load(catImageList.get(position)).fit().centerCrop().into(holder.categoryImageIV);
 

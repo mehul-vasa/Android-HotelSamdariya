@@ -8,8 +8,8 @@ public class Constants {
     public static final Boolean isDevelopmentModeOn = true;
 
 
-    private static final String domain = "http://pelisoftsolutions.com/demo/samdariya/api/";
-//    private static final String domain = "http://192.168.1.6/samdariya/api/";
+//    private static final String domain = "http://pelisoftsolutions.com/demo/samdariya/api/";
+    private static final String domain = "http://192.168.1.11/samdariya/api/";
 
 
 

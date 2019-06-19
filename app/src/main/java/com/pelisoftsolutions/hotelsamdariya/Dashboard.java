@@ -40,6 +40,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -244,8 +245,19 @@ public class Dashboard extends BaseActivity {
                 final DatePickerDialog datePickerDialog = new DatePickerDialog(Dashboard.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        selectedCheckOutDate = year+"-"+(++month)+"-"+dayOfMonth;
-                        checkOutDateTV.setText(selectedCheckOutDate);
+
+                        Date checkInDate = Utility.convertStringToDate(selectedCheckInDate, "yyyy-MM-dd");
+                        Date checkOutDate = Utility.convertStringToDate(year+"-"+(++month)+"-"+dayOfMonth, "yyyy-MM-dd");
+
+                        if(checkInDate.after(checkOutDate)) {
+
+                            Toast.makeText(getApplicationContext(), "Check Out date cannot be before Check In Date", Toast.LENGTH_LONG).show();
+                        } else {
+
+                            selectedCheckOutDate = year+"-"+(++month)+"-"+dayOfMonth;
+                            checkOutDateTV.setText(selectedCheckOutDate);
+                        }
+
                     }
                 }, startYear, starthMonth, startDay);
 

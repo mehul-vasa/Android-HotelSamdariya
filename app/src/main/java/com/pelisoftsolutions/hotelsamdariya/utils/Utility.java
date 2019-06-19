@@ -176,7 +176,7 @@ public class Utility {
 		Log.e("Data", "Teriff : "+teriff + ", roomTerrif : " + roomTeriif);
 
 		roomAmtTV .setText("Rs."+roomTeriif+"/-");
-		taxLabelTV.setText("Tax ("+taxPercentage+"%)");
+		taxLabelTV.setText("( CGST : "+taxPercentage/2+"%, SGST : +" + taxPercentage/2 + ")");
 		taxAmtTv .setText("Rs."+taxAmount+"/-");
 		totalAmtTV .setText("Rs."+terffAfterTax+"/-");
 

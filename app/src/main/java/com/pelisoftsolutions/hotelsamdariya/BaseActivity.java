@@ -167,9 +167,10 @@ public class BaseActivity extends Activity {
                         break;
 
                     case R.id.nav_contact:
-                        Intent homework = new Intent(BaseActivity.this, ListActivity.class);
-                        homework.putExtra(Constants.source, "contact");
-                        startActivity(homework);
+                        //TODO send whatsapp message
+//                        Intent homework = new Intent(BaseActivity.this, ListActivity.class);
+//                        homework.putExtra(Constants.source, "contact");
+//                        startActivity(homework);
                         drawer.closeDrawer(START);
                         break;
 

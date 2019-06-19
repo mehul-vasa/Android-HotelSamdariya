@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.pelisoftsolutions.hotelsamdariya.adapters.AminitiesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.CategoryImagesViewPagerAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.FeaturedVideoAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.RoomCategoriesAdapter;
@@ -34,39 +35,42 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 public class HotelRoomPage extends AppCompatActivity {
 
-//    CollapsingToolbarLayout collapsingToolbar;
-//    Toolbar toolbar;
 
     WebView aboutWebview;
 
 
-    RecyclerView roomCategoryList, banquetCategoryList, testimonialsList, videosList;
+    RecyclerView roomCategoryList, banquetCategoryList, testimonialsList, videosList, aminitiesListview;
 
     LinearLayout phoneLay, emailLay, addressLay, aboutLay, contactLay;
     LinearLayout contactViewcontainer;
     TextView phoneTV, emailTV, addressTV, banquetHeader, videoHeader;
     CardView testimonialsLay;
 
-    TextView viewAllBtn;
+    TextView hotelNameTV, hotelLocationTV,  viewAllBtn;
 
     RoomCategoriesAdapter roomAdapter, banquetAdapter;
     TestimonialsAdapter testimonialsAdapter;
     FeaturedVideoAdapter videoAdapter;
+    AminitiesAdapter aminitiesAdapter;
 
     ArrayList<String> roomCatIdList = new ArrayList<>();
     ArrayList<String> roomCatNameList = new ArrayList<>();
+    ArrayList<String> roomCatDescList = new ArrayList<>();
     ArrayList<String> roomCatTerifList = new ArrayList<>();
     ArrayList<String> roomCatImageList = new ArrayList<>();
 
-
+    ArrayList<String> aminitiesList = new ArrayList<>();
 
     ArrayList<String> testimonialIdList = new ArrayList<>();
     ArrayList<String> testimonialNameList = new ArrayList<>();
@@ -88,10 +92,11 @@ public class HotelRoomPage extends AppCompatActivity {
         setContentView(R.layout.activity_hotel_page);
 
 
-//        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        hotelNameTV = findViewById(R.id.hotel_details_hotelName);
+        hotelLocationTV = findViewById(R.id.hotel_details_hotellocationTV);
 
         roomCategoryList = findViewById(R.id.hotel_room_category_list);
+        aminitiesListview = findViewById(R.id.hotel_amenities_list);
         banquetCategoryList = findViewById(R.id.hotel_banquet_category_list);
         banquetHeader = findViewById(R.id.hotel_banquet_category_header);
         testimonialsList = findViewById(R.id.hotel_testimonials_list);
@@ -117,14 +122,16 @@ public class HotelRoomPage extends AppCompatActivity {
         emailTV = findViewById(R.id.hotel_about_mailTV);
         addressTV = findViewById(R.id.hotel_about_addressTV);
 
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        roomAdapter = new RoomCategoriesAdapter(HotelRoomPage.this, roomCatIdList, roomCatNameList, roomCatImageList, roomCatTerifList,"room", getIntent().getStringExtra(Constants.hotelId), getIntent().getStringExtra(Constants.bookingParams));
+        roomAdapter = new RoomCategoriesAdapter(HotelRoomPage.this, roomCatIdList, roomCatNameList, roomCatDescList, roomCatImageList, roomCatTerifList,"room", getIntent().getStringExtra(Constants.hotelId), getIntent().getStringExtra(Constants.bookingParams));
         roomCategoryList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         roomCategoryList.setItemAnimator(new DefaultItemAnimator());
         roomCategoryList.setAdapter(roomAdapter);
+
+        aminitiesAdapter = new AminitiesAdapter(HotelRoomPage.this, aminitiesList);
+        aminitiesListview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        aminitiesListview.setItemAnimator(new DefaultItemAnimator());
+        aminitiesListview.setAdapter(aminitiesAdapter);
 
 
         banquetCategoryList.setVisibility(View.GONE);
@@ -214,8 +221,17 @@ public class HotelRoomPage extends AppCompatActivity {
 
                             JSONObject hotelData = object.getJSONObject("hotel");
 
-//                            collapsingToolbar.setTitle(hotelData.getString("hotel_name").split(",")[0]);
+                            hotelNameTV.setText(hotelData.getString("hotel_name").split(",")[0]);
+                            hotelLocationTV.setText(hotelData.getString("hotel_name").split(",")[1]);
+
                             aboutWebview.loadData(hotelData.getString("hotel_desc"), "text/html", "utf-8");
+
+                            String aminities = hotelData.getString("hotel_aminities");
+                            List<String> amList = Arrays.asList(aminities.split(","));
+                            for (int i = 0; i<amList.size(); i++) {
+                                aminitiesList.add(amList.get(i));
+                            }
+                            aminitiesAdapter.notifyDataSetChanged();
 
                             phoneNo = hotelData.getString("hotel_contact");
                             emailId = hotelData.getString("hotel_email");
@@ -229,10 +245,12 @@ public class HotelRoomPage extends AppCompatActivity {
                             for(int i =0; i<roomData.length(); i++) {
                                 roomCatIdList.add(roomData.getJSONObject(i).getString("category_id"));
                                 roomCatNameList.add(roomData.getJSONObject(i).getString("category_name"));
+                                roomCatDescList.add(roomData.getJSONObject(i).getString("category_desc"));
                                 roomCatImageList.add(roomData.getJSONObject(i).getString("category_image"));
                                 roomCatTerifList.add(roomData.getJSONObject(i).getString("category_price"));
                             }
                             roomAdapter.notifyDataSetChanged();
+                            Log.e("roomAdapter adapter", roomAdapter.getItemCount()+"..");
 
                             JSONArray testimonialData = object.getJSONArray("testimonial");
                             if(testimonialData.length() == 0) {
