@@ -278,16 +278,35 @@
                 android:padding="5dp"
                 />
 
-            <TextView
-                android:id="@+id/dashboard_taxLabelTv"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tax"
-                android:textSize="@dimen/subHeading"
-                android:textColor="@color/fontPrimary"
-                android:layout_marginRight="20sp"
-                android:padding="5dp"
-                />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tax"
+                    android:textSize="@dimen/subHeading"
+                    android:textColor="@color/fontPrimary"
+                    android:padding="5dp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/dashboard_taxLabelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tax"
+                    android:textSize="@dimen/secondaryFont"
+                    android:textColor="@color/fontPrimary"
+                    android:padding="5dp"
+
+                    />
+
+            </LinearLayout>
+
+
 
             <View
                 android:layout_width="match_parent"

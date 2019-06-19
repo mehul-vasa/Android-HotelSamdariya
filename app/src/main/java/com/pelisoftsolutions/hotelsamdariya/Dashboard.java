@@ -246,22 +246,34 @@ public class Dashboard extends BaseActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
+                        String checkOut = year+"-"+(++month)+"-"+dayOfMonth;
+
                         Date checkInDate = Utility.convertStringToDate(selectedCheckInDate, "yyyy-MM-dd");
-                        Date checkOutDate = Utility.convertStringToDate(year+"-"+(++month)+"-"+dayOfMonth, "yyyy-MM-dd");
+                        Date checkOutDate = Utility.convertStringToDate(checkOut, "yyyy-MM-dd");
 
                         if(checkInDate.after(checkOutDate)) {
 
                             Toast.makeText(getApplicationContext(), "Check Out date cannot be before Check In Date", Toast.LENGTH_LONG).show();
                         } else {
 
-                            selectedCheckOutDate = year+"-"+(++month)+"-"+dayOfMonth;
+                            selectedCheckOutDate = checkOut;
                             checkOutDateTV.setText(selectedCheckOutDate);
                         }
+
+
+
 
                     }
                 }, startYear, starthMonth, startDay);
 
-                datePickerDialog.show();
+
+                if(selectedCheckInDate.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please select check-in date first", Toast.LENGTH_LONG).show();
+                } else {
+                    datePickerDialog.show();
+                }
+
+
 
             }
         });
@@ -280,6 +292,7 @@ public class Dashboard extends BaseActivity {
             public void onNumberPicked(int value) {
 
                 selectedRoomQty = value+"";
+
             }
         });
 
