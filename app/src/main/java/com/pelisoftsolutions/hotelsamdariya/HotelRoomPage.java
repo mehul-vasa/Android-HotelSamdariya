@@ -1,8 +1,11 @@
 package com.pelisoftsolutions.hotelsamdariya;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -14,7 +17,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +32,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker;
+import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPickerListener;
 import com.pelisoftsolutions.hotelsamdariya.adapters.AminitiesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.CategoryImagesViewPagerAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.FeaturedVideoAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.RoomCategoriesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.TestimonialsAdapter;
 import com.pelisoftsolutions.hotelsamdariya.utils.Constants;
+import com.pelisoftsolutions.hotelsamdariya.utils.Utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +49,7 @@ import org.json.JSONObject;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +75,7 @@ public class HotelRoomPage extends AppCompatActivity {
     TestimonialsAdapter testimonialsAdapter;
     FeaturedVideoAdapter videoAdapter;
     AminitiesAdapter aminitiesAdapter;
+    TestimonialsAdapter bottomSheetAdapter;
 
     ArrayList<String> roomCatIdList = new ArrayList<>();
     ArrayList<String> roomCatNameList = new ArrayList<>();
@@ -154,9 +167,7 @@ public class HotelRoomPage extends AppCompatActivity {
         viewAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent asd = new Intent(getApplicationContext(), Testimonials.class);
-                asd.putExtra("hotelId", getIntent().getStringExtra(Constants.hotelId));
-                startActivity(asd);
+                openListBottomSheet();
             }
         });
 
@@ -185,6 +196,108 @@ public class HotelRoomPage extends AppCompatActivity {
 
         getHotelDetailsApi();
 
+    }
+
+    private void openListBottomSheet() {
+
+        getTestimonialApi();
+
+        View view = getLayoutInflater().inflate(R.layout.bottomsheet_list, null);
+//        BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(view);
+//        behavior.setPeekHeight(300);
+
+        TextView header = view.findViewById(R.id.fees_bottomSheet_header);
+        ImageView crossBtn = view.findViewById(R.id.fees_bottomSheet_crossBtn);
+
+
+        final RecyclerView listview = view.findViewById(R.id.bottomsheet_listview);
+
+        bottomSheetAdapter = new TestimonialsAdapter(HotelRoomPage.this, testimonialIdList, testimonialNameList, testimonialRatingList, testimonialCommentList);
+        listview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        listview.setItemAnimator(new DefaultItemAnimator());
+        listview.setAdapter(bottomSheetAdapter);
+
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+
+        dialog.setContentView(view);
+        dialog.show();
+
+        header.setText("REVIEWS");
+
+        crossBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void getTestimonialApi () {
+
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Loading");
+        pd.setCancelable(false);
+        pd.show();
+
+        String url = Constants.getTestimonialsUrl;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String result) {
+                if (result != null) {
+                    pd.dismiss();
+                    try {
+                        Log.e("Result", result);
+                        JSONObject object = new JSONObject(result);
+
+                        String status = object.getString("status");
+                        if(status.equals("1")) {
+                            testimonialIdList.clear(); testimonialNameList.clear(); testimonialRatingList.clear(); testimonialCommentList.clear();
+                            JSONArray testimonialData = object.getJSONArray("testimonials");
+                            for(int i =0; i<testimonialData.length(); i++) {
+                                testimonialIdList.add(testimonialData.getJSONObject(i).getString("testimonial_id"));
+                                testimonialNameList.add(testimonialData.getJSONObject(i).getString("user_name"));
+                                testimonialRatingList.add(testimonialData.getJSONObject(i).getString("rating"));
+                                testimonialCommentList.add(testimonialData.getJSONObject(i).getString("comment"));
+                            }
+                            bottomSheetAdapter.notifyDataSetChanged();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    pd.dismiss();
+                    Toast.makeText(getApplicationContext(), R.string.noInternetMsg, Toast.LENGTH_SHORT).show();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        pd.dismiss();
+                        Log.e("Volley Error", volleyError.toString());
+                        Toast.makeText(HotelRoomPage.this, R.string.slowInternetMsg, Toast.LENGTH_LONG).show();
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<>();
+
+                params.put("hotelId", getIntent().getStringExtra(Constants.hotelId));
+                Log.e("testimonial params", params.toString() );
+                return params;
+            }
+        };
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(HotelRoomPage.this);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
     }
 
     @Override

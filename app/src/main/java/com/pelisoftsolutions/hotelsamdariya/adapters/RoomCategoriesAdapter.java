@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -367,6 +368,10 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
             Button submitBtn = view.findViewById(R.id.dashboard_searchBox_submit);
 
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
+
+            BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(view);
+            behavior.setState(BottomSheetBehavior.STATE_SETTLING);
+
 
             dialog.setContentView(view);
             dialog.show();

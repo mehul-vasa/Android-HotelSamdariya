@@ -284,12 +284,14 @@ public class Dashboard extends BaseActivity {
 
                 selectedPersonQty = value+"";
                 roomPicker.setMinValue(1);
+                roomPicker.setMaxValue(value);
             }
         });
 
         roomPicker.setListener(new ScrollableNumberPickerListener() {
             @Override
             public void onNumberPicked(int value) {
+
 
                 selectedRoomQty = value+"";
 
