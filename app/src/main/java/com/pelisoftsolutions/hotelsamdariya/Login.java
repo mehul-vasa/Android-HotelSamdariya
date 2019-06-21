@@ -128,13 +128,22 @@ public class Login extends AppCompatActivity {
 
                             JSONObject userData = object.getJSONObject("userData");
 
-                            Utility.setSharedPreference(getApplicationContext(), Constants.userId, userData.getString("user_id"));
-                            Utility.setSharedPreference(getApplicationContext(), Constants.userName, userData.getString("user_name"));
-                            Utility.setSharedPreference(getApplicationContext(), Constants.userContact, userData.getString("contact_number"));
-                            Utility.setSharedPreference(getApplicationContext(), Constants.userEmail, userData.getString("email"));
-                            Utility.setSharedPreferenceBoolean(getApplicationContext(), Constants.loginStatus, true);
-                            startActivity(new Intent(getApplicationContext(), Dashboard.class));
-                            finish();
+                            if(userData.getString("auth_token").isEmpty()) {
+                                Utility.setSharedPreference(getApplicationContext(), Constants.userId, userData.getString("user_id"));
+                                Utility.setSharedPreference(getApplicationContext(), Constants.userName, userData.getString("user_name"));
+                                Utility.setSharedPreference(getApplicationContext(), Constants.userContact, userData.getString("contact_number"));
+                                Utility.setSharedPreference(getApplicationContext(), Constants.userEmail, userData.getString("email"));
+                                Utility.setSharedPreferenceBoolean(getApplicationContext(), Constants.loginStatus, true);
+                                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                                finish();
+                            } else {
+                                Intent asd = new Intent(getApplicationContext(), OtpVerification.class);
+                                asd.putExtra(Constants.userId, userData.getString("user_id"));
+                                startActivity(asd);
+                                finish();
+                            }
+
+
 
                         } else {
                             Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();

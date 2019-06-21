@@ -1,5 +1,6 @@
 package com.pelisoftsolutions.hotelsamdariya.utils;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,7 +19,9 @@ import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -86,6 +89,12 @@ public class Utility {
 			editor.putInt(name, value);
 			editor.commit();
 		}
+
+	public static void hideKeyboard(Context context, View view) {
+
+		InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+	}
 
 	public static String getSharedPreferences(Context context, String name) {
 		SharedPreferences settings = context

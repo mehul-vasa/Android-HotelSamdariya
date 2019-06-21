@@ -25,6 +25,8 @@ public class Constants {
     public static final String getRoomCategoriesUrl = domain + "getRoomCategories_api.php";
     public static final String bookingUrl = domain + "book_api.php";
     public static final String getBanquetsUrl = domain + "getBanquets_api.php";
+    public static final String verifyOtpUrl = domain + "verifyOtp_api.php";
+    public static final String resendOtpUrl = domain + "resendOtp_api.php";
 
     //SHARED PREFERENCE KEYS
     public static final String loginStatus = "isUserLoggedIn";

@@ -11,7 +11,8 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".Dashboard"></activity>
+        <activity android:name=".OtpVerification"></activity>
+        <activity android:name=".Dashboard" />
         <activity android:name=".ListActivity" />
         <activity
             android:name=".CategoryDetails"

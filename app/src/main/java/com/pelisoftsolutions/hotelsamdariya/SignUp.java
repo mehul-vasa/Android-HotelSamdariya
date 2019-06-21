@@ -127,7 +127,9 @@ public class SignUp extends AppCompatActivity {
                         if(status.equals("1")) {
 
                             Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(), Login.class));
+                            Intent asd = new Intent(getApplicationContext(), OtpVerification.class);
+                            asd.putExtra(Constants.userId, object.getString("userId"));
+                            startActivity(asd);
                             finish();
 
                         } else {

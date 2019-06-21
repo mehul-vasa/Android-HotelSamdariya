@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layout_header"
+        android:layout_width="match_parent"
+        android:layout_height="44sp"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44sp"
+            android:gravity="center"
+            android:text="Enter One Time Password"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_otp"
+        android:layout_width="match_parent"
+        android:layout_height="90sp"
+        android:layout_below="@+id/layout_header"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!--<EditText-->
+        <!--android:id="@+id/editTexttwo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:minWidth="100dp"-->
+        <!--/>-->
+
+        <EditText
+            android:id="@+id/editTextone"
+            android:layout_width="40dp"
+            android:layout_height="42dp"
+            android:inputType="number"
+            android:gravity="center"
+            android:maxLength="1"
+            android:nextFocusRight="@id/editTexttwo">
+
+            <requestFocus />
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/editTexttwo"
+            android:layout_width="40dp"
+            android:layout_height="42dp"
+            android:inputType="number"
+            android:gravity="center"
+            android:nextFocusRight="@id/editTextthree"
+            android:maxLength="1"/>
+
+        <EditText
+            android:id="@+id/editTextthree"
+            android:layout_width="40dp"
+            android:layout_height="42dp"
+            android:inputType="number"
+            android:gravity="center"
+            android:nextFocusRight="@id/editTextfour"
+            android:maxLength="1"/>
+
+        <EditText
+            android:id="@+id/editTextfour"
+            android:layout_width="40dp"
+            android:layout_height="42dp"
+            android:inputType="number"
+            android:gravity="center"
+            android:maxLength="1"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/otp_resendOTP"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:text="Resend OTP"
+        android:layout_below="@+id/layout_otp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="#000000"/>
+
+
+    <Button
+        android:id="@+id/otp_submitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT"
+        android:gravity="center"
+        android:layout_below="@+id/otp_resendOTP"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        />
+
+
+
+
+</RelativeLayout>
