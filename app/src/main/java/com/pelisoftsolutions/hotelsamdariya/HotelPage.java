@@ -30,6 +30,7 @@ import com.pelisoftsolutions.hotelsamdariya.adapters.AminitiesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.CategoryImagesViewPagerAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.FeaturedImagesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.FeaturedVideoAdapter;
+import com.pelisoftsolutions.hotelsamdariya.adapters.HotelRoomAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.MyListAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.RoomCategoriesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.TestimonialsAdapter;
@@ -62,7 +63,7 @@ public class HotelPage extends AppCompatActivity {
 
     TextView hotelNameTV, hotelLocationTV,  viewAllBtn;
 
-    RoomCategoriesAdapter roomAdapter;
+    HotelRoomAdapter roomAdapter;
     TestimonialsAdapter testimonialsAdapter;
     FeaturedVideoAdapter videoAdapter;
     AminitiesAdapter aminitiesAdapter;
@@ -131,7 +132,7 @@ public class HotelPage extends AppCompatActivity {
         addressTV = findViewById(R.id.hotel_about_addressTV);
 
 
-        roomAdapter = new RoomCategoriesAdapter(HotelPage.this, roomCatIdList, roomCatNameList, roomCatDescList, roomCatImageList, roomCatTerifList,"room", getIntent().getStringExtra(Constants.hotelId), getIntent().getStringExtra(Constants.bookingParams));
+        roomAdapter = new HotelRoomAdapter(HotelPage.this, roomCatIdList, roomCatNameList, roomCatDescList, roomCatImageList, roomCatTerifList,"room", getIntent().getStringExtra(Constants.hotelId), getIntent().getStringExtra(Constants.bookingParams));
         roomCategoryList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         roomCategoryList.setItemAnimator(new DefaultItemAnimator());
         roomCategoryList.setAdapter(roomAdapter);

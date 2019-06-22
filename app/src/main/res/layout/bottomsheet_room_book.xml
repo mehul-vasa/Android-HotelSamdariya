@@ -40,27 +40,8 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/dashboard_name_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Primary Guest Name"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="20dp"
-        />
-
-    <EditText
-        android:id="@+id/dashboard_contact_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Primary Guest Contact Number"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="20dp"
-        />
-
     <LinearLayout
+        android:id="@+id/room_bottonsheet_dateLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
@@ -160,6 +141,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/room_bottonsheet_qtyLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
@@ -255,7 +237,30 @@
 
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/dashboard_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Primary Guest Name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/dashboard_contact_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Primary Guest Contact Number"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        />
+
+
+
     <LinearLayout
+        android:id="@+id/room_bottonsheet_priceLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"

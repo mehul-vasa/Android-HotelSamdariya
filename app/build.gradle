@@ -34,6 +34,8 @@ dependencies {
 
     implementation 'com.michaelmuenzer.android:ScrollableNumberPicker:0.2.2'
 
+    implementation 'com.github.clans:fab:1.6.4'
+
     implementation('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }

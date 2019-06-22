@@ -3,10 +3,12 @@ package com.pelisoftsolutions.hotelsamdariya;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -58,9 +60,7 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 public class HotelRoomPage extends AppCompatActivity {
 
-
     WebView aboutWebview;
-
 
     RecyclerView roomCategoryList, banquetCategoryList, testimonialsList, videosList, aminitiesListview;
 
@@ -76,6 +76,8 @@ public class HotelRoomPage extends AppCompatActivity {
     FeaturedVideoAdapter videoAdapter;
     AminitiesAdapter aminitiesAdapter;
     TestimonialsAdapter bottomSheetAdapter;
+
+    FloatingActionButton whatsappFab;
 
     ArrayList<String> roomCatIdList = new ArrayList<>();
     ArrayList<String> roomCatNameList = new ArrayList<>();
@@ -134,6 +136,30 @@ public class HotelRoomPage extends AppCompatActivity {
         phoneTV = findViewById(R.id.hotel_about_phoneTV);
         emailTV = findViewById(R.id.hotel_about_mailTV);
         addressTV = findViewById(R.id.hotel_about_addressTV);
+
+        whatsappFab = findViewById(R.id.hotels_fab_whatsapp);
+
+        whatsappFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    String text = "Hello, I want to book a room in your hotel.";
+
+                    String toNumber = Constants.whatsappNumber;
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
+                    startActivity(intent);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
 
 
         roomAdapter = new RoomCategoriesAdapter(HotelRoomPage.this, roomCatIdList, roomCatNameList, roomCatDescList, roomCatImageList, roomCatTerifList,"room", getIntent().getStringExtra(Constants.hotelId), getIntent().getStringExtra(Constants.bookingParams));

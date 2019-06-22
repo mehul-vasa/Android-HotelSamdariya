@@ -169,7 +169,7 @@ public class Login extends AppCompatActivity {
 
             @Override
                 public Map<String, String> getParams(){
-
+                Log.e("login params", params.toString());
                 return params;
             }
         };

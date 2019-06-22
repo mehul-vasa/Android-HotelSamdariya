@@ -9,6 +9,7 @@ public class Constants {
 
 
     private static final String domain = "http://pelisoftsolutions.com/demo/samdariya/api/";
+    public static final String whatsappNumber = "916264904334";
 //    private static final String domain = "http://192.168.1.11/samdariya/api/";
 
 

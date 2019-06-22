@@ -6,10 +6,8 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.provider.SyncStateContract;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -36,7 +34,6 @@ import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPickerListener;
 import com.pelisoftsolutions.hotelsamdariya.BanuquetDetail;
 import com.pelisoftsolutions.hotelsamdariya.CategoryDetails;
-import com.pelisoftsolutions.hotelsamdariya.HotelPage;
 import com.pelisoftsolutions.hotelsamdariya.Login;
 import com.pelisoftsolutions.hotelsamdariya.R;
 import com.pelisoftsolutions.hotelsamdariya.utils.Constants;
@@ -51,7 +48,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAdapter.MyViewHolder> {
+public class HotelRoomAdapter extends RecyclerView.Adapter<HotelRoomAdapter.MyViewHolder> {
 
     private Activity context;
     private ArrayList<String> catIdList;
@@ -68,8 +65,8 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
 
     private String selectedCheckInDate = "", selectedCheckOutDate = "", selectedPersonQty = "", selectedRoomQty = "";
 
-    public RoomCategoriesAdapter(Activity hotelPage, ArrayList<String> roomCatIdList, ArrayList<String> roomCatNameList, ArrayList<String> roomCatDescList, ArrayList<String> roomCatImageList,
-                                 ArrayList<String> roomCatTerifList, String source, String hotelId, String bookingData) {
+    public HotelRoomAdapter(Activity hotelPage, ArrayList<String> roomCatIdList, ArrayList<String> roomCatNameList, ArrayList<String> roomCatDescList, ArrayList<String> roomCatImageList,
+                            ArrayList<String> roomCatTerifList, String source, String hotelId, String bookingData) {
 
         this.context = hotelPage;
         this.catIdList = roomCatIdList;
@@ -152,21 +149,7 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
             @Override
             public void onClick(View v) {
 
-                Log.e("Source", source);
-
-//                JSONObject bookingJson;
-//
-//                try {
-//                    bookingJson = new JSONObject(bookingData);
-//                } catch (JSONException e) {
-//                    bookingJson = new JSONObject();
-//                }
-//
-//
-//
-//                Log.e("booking params sp", bookingData);
-//
-//                openBottomSheet(position, bookingJson);
+                openBottomSheet(position);
             }
         });
 
@@ -177,7 +160,7 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
         return catIdList.size();
     }
 
-    private void openBottomSheet(final int position, JSONObject data) {
+    private void openBottomSheet(final int position) {
 
         if(source.equals("room")) {
 
@@ -186,6 +169,14 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
 
             TextView header = view.findViewById(R.id.fees_bottomSheet_header);
             ImageView crossBtn = view.findViewById(R.id.fees_bottomSheet_crossBtn);
+
+            final LinearLayout dateLay = view.findViewById(R.id.room_bottonsheet_dateLay);
+            final LinearLayout qtyLay = view.findViewById(R.id.room_bottonsheet_qtyLay);
+            final LinearLayout priceLay = view.findViewById(R.id.room_bottonsheet_priceLay);
+
+            priceLay.setVisibility(View.GONE);
+            dateLay.setVisibility(View.VISIBLE);
+            qtyLay.setVisibility(View.VISIBLE);
 
             final EditText nameET = view.findViewById(R.id.dashboard_name_et);
             final EditText contactET = view.findViewById(R.id.dashboard_contact_et);
@@ -204,27 +195,6 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
             final ScrollableNumberPicker roomPicker = view.findViewById(R.id.dashboard_bottomSheet_roomPicker);
 
             final Button submitBtn = view.findViewById(R.id.dashboard_searchBox_submit);
-
-            //TODO load default data
-            try {
-
-                selectedCheckInDate = data.getString("startDate");
-                selectedCheckOutDate = data.getString("endDate");
-                selectedPersonQty = data.getString("pax");
-                selectedRoomQty = data.getString("qty");
-
-                submitBtn.setText(Utility.calculateTeriff(Integer.parseInt(roomCatTerifList.get(position)),
-                        Integer.parseInt(selectedRoomQty), selectedCheckInDate, selectedCheckOutDate, roomAmtTV, taxLabelTV, taxAmtTv, totalAmtTv) );
-
-
-                checkInDateTV.setText(selectedCheckInDate);
-                checkOutDateTV.setText(selectedCheckOutDate);
-                personPicker.setValue(Integer.parseInt(selectedPersonQty));
-                roomPicker.setValue(Integer.parseInt(selectedRoomQty));
-
-            } catch (JSONException e) {
-                Log.e("Parse exception", e.toString());
-            }
 
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
 
@@ -284,6 +254,7 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
 
                     selectedPersonQty = value+"";
                     roomPicker.setMinValue(1);
+                    priceLay.setVisibility(View.VISIBLE);
                     submitBtn.setText(Utility.calculateTeriff(Integer.parseInt(roomCatTerifList.get(position)),
                             Integer.parseInt(selectedRoomQty), selectedCheckInDate, selectedCheckOutDate, roomAmtTV, taxLabelTV, taxAmtTv, totalAmtTv) );
                 }
@@ -294,6 +265,7 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
                 public void onNumberPicked(int value) {
 
                     selectedRoomQty = value+"";
+                    priceLay.setVisibility(View.VISIBLE);
                     submitBtn.setText(Utility.calculateTeriff(Integer.parseInt(roomCatTerifList.get(position)),
                             Integer.parseInt(selectedRoomQty), selectedCheckInDate, selectedCheckOutDate, roomAmtTV, taxLabelTV, taxAmtTv, totalAmtTv) );
                 }

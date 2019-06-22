@@ -214,6 +214,7 @@ public class OtpVerification extends AppCompatActivity implements View.OnKeyList
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Adding parameters
+                Log.e("resend params", params.toString());
                 return params;
             }
         };
