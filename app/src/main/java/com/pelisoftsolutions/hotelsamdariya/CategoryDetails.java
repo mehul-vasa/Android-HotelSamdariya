@@ -282,7 +282,7 @@ public class CategoryDetails extends AppCompatActivity {
         Button submitBtn = view.findViewById(R.id.dashboard_searchBox_submit);
 
 
-        //TODO load previous data
+        //LOADING PREVIOUS DATA
         try {
             JSONObject data = new JSONObject(getIntent().getStringExtra(Constants.bookingParams));
 
@@ -396,7 +396,7 @@ public class CategoryDetails extends AppCompatActivity {
                     } else if (selectedRoomQty.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
                     } else {
-                        //TODO booking process
+                        //booking process
                         bookingParams.put("userId", Utility.getSharedPreferences(getApplicationContext(), Constants.userId));
                         bookingParams.put("hotelId", getIntent().getStringExtra("hotelId"));
                         bookingParams.put("catId", getIntent().getStringExtra("id"));
@@ -411,7 +411,6 @@ public class CategoryDetails extends AppCompatActivity {
 
                         Log.e("Booking Params", bookingParams.toString());
 
-                        //TODO booking api update
                         bookingApi();
 
                     }

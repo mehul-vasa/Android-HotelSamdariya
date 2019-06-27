@@ -33,6 +33,7 @@
             android:id="@+id/nav_contact"
             android:title="@string/contactUs"
             android:icon="@drawable/ic_help"
+            android:visible="false"
             />
 
         <item

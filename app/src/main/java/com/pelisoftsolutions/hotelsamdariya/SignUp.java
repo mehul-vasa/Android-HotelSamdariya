@@ -66,7 +66,6 @@ public class SignUp extends AppCompatActivity {
                     repassET.setError("Password do not match");
                 } else {
 
-                    //TODO sign-up api
                     params.put("name", nameET.getText().toString());
                     params.put("contact", contactET.getText().toString());
                     params.put("email", emailET.getText().toString());

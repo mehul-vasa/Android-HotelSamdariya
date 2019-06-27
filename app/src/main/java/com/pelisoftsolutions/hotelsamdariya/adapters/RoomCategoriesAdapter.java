@@ -154,19 +154,17 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
 
                 Log.e("Source", source);
 
-//                JSONObject bookingJson;
-//
-//                try {
-//                    bookingJson = new JSONObject(bookingData);
-//                } catch (JSONException e) {
-//                    bookingJson = new JSONObject();
-//                }
-//
-//
-//
-//                Log.e("booking params sp", bookingData);
-//
-//                openBottomSheet(position, bookingJson);
+                JSONObject bookingJson;
+
+                try {
+                    bookingJson = new JSONObject(bookingData);
+                } catch (JSONException e) {
+                    bookingJson = new JSONObject();
+                }
+
+                Log.e("booking params sp", bookingData);
+
+                openBottomSheet(position, bookingJson);
             }
         });
 

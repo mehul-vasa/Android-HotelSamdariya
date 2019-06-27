@@ -67,7 +67,7 @@ public class HotelRoomPage extends AppCompatActivity {
     LinearLayout phoneLay, emailLay, addressLay, aboutLay, contactLay;
     LinearLayout contactViewcontainer;
     TextView phoneTV, emailTV, addressTV, banquetHeader, videoHeader;
-    CardView testimonialsLay;
+    CardView testimonialsLay, aminitiesLay, policyLay;
 
     TextView hotelNameTV, hotelLocationTV,  viewAllBtn;
 
@@ -122,6 +122,8 @@ public class HotelRoomPage extends AppCompatActivity {
         contactLay = findViewById(R.id.hotel_contact_lay);
         contactViewcontainer = findViewById(R.id.hotel_contact_viewContainer);
         testimonialsLay = findViewById(R.id.hotel_testimonials_lay);
+        aminitiesLay = findViewById(R.id.hotel_amenities_card);
+        policyLay = findViewById(R.id.hotel_policy_card);
 
         aboutWebview = findViewById(R.id.hotel_about_webview);
         featuredImageVP = findViewById(R.id.hotel_featuredImage_viewpager);
@@ -366,11 +368,16 @@ public class HotelRoomPage extends AppCompatActivity {
                             aboutWebview.loadData(hotelData.getString("hotel_desc"), "text/html", "utf-8");
 
                             String aminities = hotelData.getString("hotel_aminities");
-                            List<String> amList = Arrays.asList(aminities.split(","));
-                            for (int i = 0; i<amList.size(); i++) {
-                                aminitiesList.add(amList.get(i));
+                            if(aminities.isEmpty()) {
+                                aminitiesLay.setVisibility(View.GONE);
+                            } else {
+                                List<String> amList = Arrays.asList(aminities.split(","));
+                                for (int i = 0; i<amList.size(); i++) {
+                                    aminitiesList.add(amList.get(i));
+                                }
+                                aminitiesAdapter.notifyDataSetChanged();
                             }
-                            aminitiesAdapter.notifyDataSetChanged();
+
 
                             phoneNo = hotelData.getString("hotel_contact");
                             emailId = hotelData.getString("hotel_email");
@@ -379,6 +386,12 @@ public class HotelRoomPage extends AppCompatActivity {
                             phoneTV.setText(phoneNo);
                             emailTV.setText(emailId);
                             addressTV.setText(address);
+
+                            //TODO add privacy here
+                            String privacyPolicy = "";
+                            if(privacyPolicy.isEmpty()) {
+                                policyLay.setVisibility(View.GONE);
+                            }
 
                             JSONArray roomData = object.getJSONArray("room");
                             for(int i =0; i<roomData.length(); i++) {
@@ -391,7 +404,9 @@ public class HotelRoomPage extends AppCompatActivity {
                             roomAdapter.notifyDataSetChanged();
                             Log.e("roomAdapter adapter", roomAdapter.getItemCount()+"..");
 
+
                             JSONArray testimonialData = object.getJSONArray("testimonial");
+                            Log.e("testimonialData", testimonialData.length()+"..");
                             if(testimonialData.length() == 0) {
                                 testimonialsLay.setVisibility(View.GONE);
                             } else {

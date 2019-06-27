@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -94,6 +95,15 @@ public class BaseActivity extends Activity {
         drawerHead = headerLayout.findViewById(R.id.drawer_head);
         //HEADER
 
+        //TODO dynamic label for login and logout btn;
+
+        Menu navMenu = navigationView.getMenu();
+        if(!Utility.getSharedPreferencesBoolean(getApplicationContext(), Constants.loginStatus)) {
+            navMenu.findItem(R.id.nav_logout).setTitle("Login");
+        }
+
+
+
         nameTV.setText(Utility.getSharedPreferences(getApplicationContext(), Constants.userName));
 
 
@@ -166,13 +176,6 @@ public class BaseActivity extends Activity {
                         drawer.closeDrawer(START);
                         break;
 
-                    case R.id.nav_contact:
-                        //TODO send whatsapp message
-//                        Intent homework = new Intent(BaseActivity.this, ListActivity.class);
-//                        homework.putExtra(Constants.source, "contact");
-//                        startActivity(homework);
-                        drawer.closeDrawer(START);
-                        break;
 
                     case R.id.nav_logout:
                         Utility.setSharedPreferenceBoolean(getApplicationContext(), Constants.loginStatus, false);

@@ -261,7 +261,6 @@ public class OtpVerification extends AppCompatActivity implements View.OnKeyList
                         String success = object.getString("success");
                         if (success.equals("1")) {
 
-                            //TODO after verification task
                             JSONObject userData = object.getJSONObject("user");
 
                             Utility.setSharedPreference(getApplicationContext(), Constants.userId, userData.getString("user_id"));

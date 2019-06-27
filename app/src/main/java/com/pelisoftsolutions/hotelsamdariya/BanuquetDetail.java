@@ -275,7 +275,6 @@ public class BanuquetDetail extends AppCompatActivity {
                     } else if (eventTypeET.getText().toString().isEmpty()) {
                         Toast.makeText(BanuquetDetail.this.getApplicationContext(), "Please Enter Type Of Event", Toast.LENGTH_LONG).show();
                     } else {
-                        //TODO booking process
                         banquetBookingParams.put("userId", Utility.getSharedPreferences(BanuquetDetail.this.getApplicationContext(), Constants.userId));
                         banquetBookingParams.put("hotelId", getIntent().getStringExtra("hotelId"));
                         banquetBookingParams.put("catId", getIntent().getStringExtra("id"));
