@@ -169,8 +169,8 @@ public class BaseActivity extends Activity {
                         drawer.closeDrawer(START);
                         break;
 
-                    case R.id.nav_about:
-                        Intent classTimeTable = new Intent(BaseActivity.this, ListActivity.class);
+                    case R.id.nav_changePassword:
+                        Intent classTimeTable = new Intent(BaseActivity.this, ChangePassword.class);
                         classTimeTable.putExtra(Constants.source, "about");
                         startActivity(classTimeTable);
                         drawer.closeDrawer(START);

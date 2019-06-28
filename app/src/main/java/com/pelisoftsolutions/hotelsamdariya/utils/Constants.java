@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 public class Constants {
 
-    public static final Boolean isDevelopmentModeOn = true;
+    public static final Boolean isDevelopmentModeOn = false;
 
 
     private static final String domain = "http://pelisoftsolutions.com/demo/samdariya/api/";
@@ -28,6 +28,7 @@ public class Constants {
     public static final String getBanquetsUrl = domain + "getBanquets_api.php";
     public static final String verifyOtpUrl = domain + "verifyOtp_api.php";
     public static final String resendOtpUrl = domain + "resendOtp_api.php";
+    public static final String changePasswordUrl = domain + "changePassword_api.php";
 
     //SHARED PREFERENCE KEYS
     public static final String loginStatus = "isUserLoggedIn";
