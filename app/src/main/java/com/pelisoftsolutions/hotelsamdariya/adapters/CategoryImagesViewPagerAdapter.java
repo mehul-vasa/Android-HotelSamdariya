@@ -1,11 +1,13 @@
 package com.pelisoftsolutions.hotelsamdariya.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.pelisoftsolutions.hotelsamdariya.ImageGallery;
 import com.pelisoftsolutions.hotelsamdariya.R;
 import com.pelisoftsolutions.hotelsamdariya.utils.RecyclingPagerAdapter;
 import com.squareup.picasso.Picasso;
@@ -59,6 +61,15 @@ public class CategoryImagesViewPagerAdapter extends RecyclingPagerAdapter {
         }
 
         Picasso.with(context).load(imageUrlList.get(getPosition(position))).fit().centerCrop().into(viewHolder.imageView);
+
+        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent asd = new Intent(context, ImageGallery.class);
+                asd.putStringArrayListExtra("imageUrlList", imageUrlList);
+                context.startActivity(asd);
+            }
+        });
 
         return convertView;
     }

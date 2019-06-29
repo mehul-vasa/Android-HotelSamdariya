@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +56,7 @@ public class CategoryDetails extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbar;
 
     private String selectedCheckInDate = "", selectedCheckOutDate = "", selectedPersonQty = "", selectedRoomQty = "", origen="details", status = "0";
+    private String terrif;
 
     private String catName, roomTerrifAmt;
 
@@ -98,76 +101,8 @@ public class CategoryDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 openBottomSheet();
 
-
-
-//                if(origen.equalsIgnoreCase("dashboard")) {
-//                    if(status.equalsIgnoreCase("1")) {
-//
-//                        final Dialog dialog = new Dialog(CategoryDetails.this);
-//                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                            dialog.setCancelable(true);
-//                            dialog.setContentView(R.layout.success_alert);
-//                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//
-//                            TextView successHead = (TextView) dialog.findViewById(R.id.successAlert_header);
-//                            TextView successMessage = (TextView) dialog.findViewById(R.id.successAlert_message);
-//
-//                            Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/BalooBhai-Regular.ttf");
-//
-//                            successHead.setTypeface(custom_font);
-//                            successMessage.setTypeface(custom_font);
-//
-//                            successMessage.setText(getIntent().getStringExtra("message"));
-//
-//                            Button dialogButton = (Button) dialog.findViewById(R.id.successAlert_button);
-//                            dialogButton.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//
-//                            dialog.show();
-//
-//                    } else {
-//
-//                        final Dialog dialog = new Dialog(CategoryDetails.this);
-//                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                            dialog.setCancelable(true);
-//                            dialog.setContentView(R.layout.success_alert);
-//                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//
-//                            ImageView successImage = (ImageView) dialog.findViewById(R.id.successAlert_image);
-//                            TextView successHead = (TextView) dialog.findViewById(R.id.successAlert_header);
-//                            TextView successMessage = (TextView) dialog.findViewById(R.id.successAlert_message);
-//                            Button dialogButton = (Button) dialog.findViewById(R.id.successAlert_button);
-//
-//                            Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/BalooBhai-Regular.ttf");
-//
-//                            successHead.setTypeface(custom_font);
-//                            successMessage.setTypeface(custom_font);
-//
-//                            successHead.setText("Error!");
-//                            successMessage.setText(getIntent().getStringExtra("message"));
-//                            successImage.setImageDrawable(getResources().getDrawable(R.drawable.img_fail));
-//                            dialogButton.setText("Try Again");
-//
-//                            dialogButton.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//
-//                            dialog.show();
-//
-//                    }
-//                } else {
-//                    openBottomSheet();
-//                }
             }
         });
 
@@ -256,127 +191,123 @@ public class CategoryDetails extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
     private void openBottomSheet() {
 
-        View view = getLayoutInflater().inflate(R.layout.bottomsheet_room_book, null);
-        view.setMinimumHeight(500);
+        if(source.equals("room")) {
 
-        TextView header = view.findViewById(R.id.fees_bottomSheet_header);
-        ImageView crossBtn = view.findViewById(R.id.fees_bottomSheet_crossBtn);
+            View view = getLayoutInflater().inflate(R.layout.bottomsheet_room_book, null);
+            view.setMinimumHeight(1500);
 
-        final EditText nameET = view.findViewById(R.id.dashboard_name_et);
-        final EditText contactET = view.findViewById(R.id.dashboard_contact_et);
-        final RelativeLayout checkInDateLay = view.findViewById(R.id.dashboard_checkIn_lay);
-        final RelativeLayout checkOutDateLay = view.findViewById(R.id.dashboard_checkOut_lay);
-        final TextView checkInDateTV = view.findViewById(R.id.dashboard_checkInDate_label);
-        final TextView  checkOutDateTV = view.findViewById(R.id.dashboard_checkOutDate_label);
+            TextView header = view.findViewById(R.id.fees_bottomSheet_header);
+            ImageView crossBtn = view.findViewById(R.id.fees_bottomSheet_crossBtn);
 
-        final TextView  roomAmtTV = view.findViewById(R.id.dashboard_roomAmtTv);
-        final TextView  taxLabelTV = view.findViewById(R.id.dashboard_taxLabelTv);
-        final TextView  taxAmtTv = view.findViewById(R.id.dashboard_taxAmtTv);
-        final TextView  totalAmtTv = view.findViewById(R.id.dashboard_totalAmtTv);
+            final LinearLayout dateLay = view.findViewById(R.id.room_bottonsheet_dateLay);
+            final LinearLayout qtyLay = view.findViewById(R.id.room_bottonsheet_qtyLay);
+            final LinearLayout priceLay = view.findViewById(R.id.room_bottonsheet_priceLay);
 
-        final ScrollableNumberPicker personPicker = view.findViewById(R.id.dashboard_bottomSheet_personPicker);
-        final ScrollableNumberPicker roomPicker = view.findViewById(R.id.dashboard_bottomSheet_roomPicker);
+            priceLay.setVisibility(View.GONE);
+            dateLay.setVisibility(View.VISIBLE);
+            qtyLay.setVisibility(View.VISIBLE);
 
-        Button submitBtn = view.findViewById(R.id.dashboard_searchBox_submit);
+            final EditText nameET = view.findViewById(R.id.dashboard_name_et);
+            final EditText contactET = view.findViewById(R.id.dashboard_contact_et);
+            final RelativeLayout checkInDateLay = view.findViewById(R.id.dashboard_checkIn_lay);
+            final RelativeLayout checkOutDateLay = view.findViewById(R.id.dashboard_checkOut_lay);
+            final TextView checkInDateTV = view.findViewById(R.id.dashboard_checkInDate_label);
+            final TextView  checkOutDateTV = view.findViewById(R.id.dashboard_checkOutDate_label);
 
-
-        //LOADING PREVIOUS DATA
-        try {
-            JSONObject data = new JSONObject(getIntent().getStringExtra(Constants.bookingParams));
-
-            selectedCheckInDate = data.getString("startDate");
-            selectedCheckOutDate = data.getString("endDate");
-            selectedPersonQty = data.getString("pax");
-            selectedRoomQty = data.getString("qty");
-
-            submitBtn.setText(Utility.calculateTeriff(Integer.parseInt(roomTerrifAmt),
-                    Integer.parseInt(selectedRoomQty), selectedCheckInDate, selectedCheckOutDate, roomAmtTV, taxLabelTV, taxAmtTv, totalAmtTv) );
-
-            checkInDateTV.setText(selectedCheckInDate);
-            checkOutDateTV.setText(selectedCheckOutDate);
-            personPicker.setValue(Integer.parseInt(selectedPersonQty));
-            roomPicker.setValue(Integer.parseInt(selectedRoomQty));
-
-        } catch (JSONException e) {
-
-        }
-
-        final BottomSheetDialog dialog = new BottomSheetDialog(CategoryDetails.this);
-
-        dialog.setContentView(view);
-        dialog.show();
-
-        header.setText(catName);
-
-        checkInDateLay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final Calendar c = Calendar.getInstance();
-                int startYear = c.get(Calendar.YEAR);
-                int starthMonth = c.get(Calendar.MONTH);
-                int startDay = c.get(Calendar.DAY_OF_MONTH);
-
-                final DatePickerDialog datePickerDialog = new DatePickerDialog(CategoryDetails.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        selectedCheckInDate = year+"-"+(++month)+"-"+dayOfMonth;
-                        checkInDateTV.setText(selectedCheckInDate);
-                    }
-                }, startYear, starthMonth, startDay);
-
-                datePickerDialog.show();
-
-            }
-        });
-
-        checkOutDateLay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final Calendar c = Calendar.getInstance();
-                int startYear = c.get(Calendar.YEAR);
-                int starthMonth = c.get(Calendar.MONTH);
-                int startDay = c.get(Calendar.DAY_OF_MONTH);
-
-                final DatePickerDialog datePickerDialog = new DatePickerDialog(CategoryDetails.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        selectedCheckOutDate = year+"-"+(++month)+"-"+dayOfMonth;
-                        checkOutDateTV.setText(selectedCheckOutDate);
-                    }
-                }, startYear, starthMonth, startDay);
-
-                datePickerDialog.show();
-
-            }
-        });
-
-        personPicker.setListener(new ScrollableNumberPickerListener() {
-            @Override
-            public void onNumberPicked(int value) {
-
-                selectedPersonQty = value+"";
-                roomPicker.setMinValue(1);
-            }
-        });
-
-        roomPicker.setListener(new ScrollableNumberPickerListener() {
-            @Override
-            public void onNumberPicked(int value) {
-
-                selectedRoomQty = value+"";
-            }
-        });
+            final TextView  roomAmtTV = view.findViewById(R.id.dashboard_roomAmtTv);
+            final TextView  taxLabelTV = view.findViewById(R.id.dashboard_taxLabelTv);
+            final TextView  taxAmtTv = view.findViewById(R.id.dashboard_taxAmtTv);
+            final TextView  totalAmtTv = view.findViewById(R.id.dashboard_totalAmtTv);
 
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            final ScrollableNumberPicker personPicker = view.findViewById(R.id.dashboard_bottomSheet_personPicker);
+            final ScrollableNumberPicker roomPicker = view.findViewById(R.id.dashboard_bottomSheet_roomPicker);
 
-                if(Utility.getSharedPreferencesBoolean(getApplicationContext(), Constants.loginStatus)) {
+            final Button submitBtn = view.findViewById(R.id.dashboard_searchBox_submit);
+
+            final BottomSheetDialog dialog = new BottomSheetDialog(CategoryDetails.this);
+
+            dialog.setContentView(view);
+            dialog.show();
+
+
+            header.setText(catName);
+
+            checkInDateLay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final Calendar c = Calendar.getInstance();
+                    int startYear = c.get(Calendar.YEAR);
+                    int starthMonth = c.get(Calendar.MONTH);
+                    int startDay = c.get(Calendar.DAY_OF_MONTH);
+
+                    final DatePickerDialog datePickerDialog = new DatePickerDialog(CategoryDetails.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            selectedCheckInDate = year+"-"+(++month)+"-"+dayOfMonth;
+                            checkInDateTV.setText(selectedCheckInDate);
+                        }
+                    }, startYear, starthMonth, startDay);
+
+                    datePickerDialog.show();
+
+                }
+            });
+
+            checkOutDateLay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final Calendar c = Calendar.getInstance();
+                    int startYear = c.get(Calendar.YEAR);
+                    int starthMonth = c.get(Calendar.MONTH);
+                    int startDay = c.get(Calendar.DAY_OF_MONTH);
+
+                    final DatePickerDialog datePickerDialog = new DatePickerDialog(CategoryDetails.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            selectedCheckOutDate = year+"-"+(++month)+"-"+dayOfMonth;
+                            checkOutDateTV.setText(selectedCheckOutDate);
+                        }
+                    }, startYear, starthMonth, startDay);
+
+                    datePickerDialog.show();
+
+                }
+            });
+
+            personPicker.setListener(new ScrollableNumberPickerListener() {
+                @Override
+                public void onNumberPicked(int value) {
+
+                    selectedPersonQty = value+"";
+                    roomPicker.setMinValue(1);
+                    priceLay.setVisibility(View.VISIBLE);
+                    submitBtn.setText(Utility.calculateTeriff(Integer.parseInt(roomTerrifAmt),
+                            Integer.parseInt(selectedRoomQty), selectedCheckInDate, selectedCheckOutDate, roomAmtTV, taxLabelTV, taxAmtTv, totalAmtTv) );
+                }
+            });
+
+            roomPicker.setListener(new ScrollableNumberPickerListener() {
+                @Override
+                public void onNumberPicked(int value) {
+
+                    selectedRoomQty = value+"";
+                    priceLay.setVisibility(View.VISIBLE);
+                    submitBtn.setText(Utility.calculateTeriff(Integer.parseInt(roomTerrifAmt),
+                            Integer.parseInt(selectedRoomQty), selectedCheckInDate, selectedCheckOutDate, roomAmtTV, taxLabelTV, taxAmtTv, totalAmtTv) );
+                }
+            });
+
+
+            submitBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
                     String name = nameET.getText().toString();
                     String contact = contactET.getText().toString();
@@ -396,7 +327,7 @@ public class CategoryDetails extends AppCompatActivity {
                     } else if (selectedRoomQty.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
                     } else {
-                        //booking process
+                        //TODO booking process
                         bookingParams.put("userId", Utility.getSharedPreferences(getApplicationContext(), Constants.userId));
                         bookingParams.put("hotelId", getIntent().getStringExtra("hotelId"));
                         bookingParams.put("catId", getIntent().getStringExtra("id"));
@@ -411,26 +342,147 @@ public class CategoryDetails extends AppCompatActivity {
 
                         Log.e("Booking Params", bookingParams.toString());
 
+                        //TODO booking api update
                         bookingApi();
 
                     }
 
-                } else {
-                    startActivity(new Intent(getApplicationContext(), Login.class));
-                    finish();
                 }
+            });
 
-            }
-        });
+            crossBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
 
-        crossBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        } else {
+
+            View view = getLayoutInflater().inflate(R.layout.bottomsheet_banquet_book, null);
+            view.setMinimumHeight(500);
+
+            TextView header = view.findViewById(R.id.fees_bottomSheet_header);
+            ImageView crossBtn = view.findViewById(R.id.fees_bottomSheet_crossBtn);
+
+            RelativeLayout checkInDateLay = view.findViewById(R.id.dashboard_checkIn_lay);
+            RelativeLayout checkOutDateLay = view.findViewById(R.id.dashboard_checkOut_lay);
+            final TextView checkInDateTV = view.findViewById(R.id.dashboard_checkInDate_label);
+            final TextView  checkOutDateTV = view.findViewById(R.id.dashboard_checkOutDate_label);
+
+            final EditText eventTypeET = view.findViewById(R.id.dashboard_eventType_et);
+
+            Button submitBtn = view.findViewById(R.id.dashboard_searchBox_submit);
+
+            final BottomSheetDialog dialog = new BottomSheetDialog(CategoryDetails.this);
+
+            BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(view);
+            behavior.setState(BottomSheetBehavior.STATE_SETTLING);
+
+
+            dialog.setContentView(view);
+            dialog.show();
+
+            header.setText(catName);
+
+            checkInDateLay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final Calendar c = Calendar.getInstance();
+                    int startYear = c.get(Calendar.YEAR);
+                    int starthMonth = c.get(Calendar.MONTH);
+                    int startDay = c.get(Calendar.DAY_OF_MONTH);
+
+                    final DatePickerDialog datePickerDialog = new DatePickerDialog(CategoryDetails.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            selectedCheckInDate = year+"-"+(++month)+"-"+dayOfMonth;
+                            checkInDateTV.setText(selectedCheckInDate);
+                        }
+                    }, startYear, starthMonth, startDay);
+
+                    datePickerDialog.show();
+
+                }
+            });
+
+            checkOutDateLay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final Calendar c = Calendar.getInstance();
+                    int startYear = c.get(Calendar.YEAR);
+                    int starthMonth = c.get(Calendar.MONTH);
+                    int startDay = c.get(Calendar.DAY_OF_MONTH);
+
+                    final DatePickerDialog datePickerDialog = new DatePickerDialog(CategoryDetails.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            selectedCheckOutDate = year+"-"+(++month)+"-"+dayOfMonth;
+                            checkOutDateTV.setText(selectedCheckOutDate);
+                        }
+                    }, startYear, starthMonth, startDay);
+
+                    datePickerDialog.show();
+
+                }
+            });
+
+
+            submitBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    if(Utility.getSharedPreferencesBoolean(getApplicationContext(), Constants.loginStatus)) {
+
+                        if (selectedCheckInDate.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
+                        } else if (selectedCheckOutDate.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
+                        } else if (eventTypeET.getText().toString().isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Please Enter Type Of Event", Toast.LENGTH_LONG).show();
+                        } else {
+                            //TODO booking process
+                            bookingParams.put("userId", Utility.getSharedPreferences(getApplicationContext(), Constants.userId));
+                            bookingParams.put("hotelId", getIntent().getStringExtra("hotelId"));
+                            bookingParams.put("catId", getIntent().getStringExtra("id"));
+                            bookingParams.put("catType", "banquet");
+                            bookingParams.put("startDate", selectedCheckInDate);
+                            bookingParams.put("endDate", selectedCheckOutDate);
+                            bookingParams.put("eventType", eventTypeET.getText().toString());
+
+                            Log.e("Banquet Booking Params", bookingParams.toString());
+
+                            bookingApi();
+
+                        }
+
+
+                    } else {
+                        startActivity(new Intent(getApplicationContext(), Login.class));
+                        finish();
+                    }
+
+
+                }
+            });
+
+            crossBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+
+        }
+
+
 
     }
+
 
     private void bookingApi () {
 
@@ -450,13 +502,70 @@ public class CategoryDetails extends AppCompatActivity {
                         JSONObject object = new JSONObject(result);
 
                         String status = object.getString("status");
+
                         if(status.equals("1")) {
 
-                            Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();
+                            final Dialog dialog = new Dialog(CategoryDetails.this);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setCancelable(true);
+                            dialog.setContentView(R.layout.success_alert);
+                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            TextView successHead = (TextView) dialog.findViewById(R.id.successAlert_header);
+                            TextView successMessage = (TextView) dialog.findViewById(R.id.successAlert_message);
+
+                            Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/BalooBhai-Regular.ttf");
+
+                            successHead.setTypeface(custom_font);
+                            successMessage.setTypeface(custom_font);
+
+                            successMessage.setText(object.getString("message"));
+
+                            Button dialogButton = (Button) dialog.findViewById(R.id.successAlert_button);
+                            dialogButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    finish();
+                                }
+                            });
+
+                            dialog.show();
 
                         } else {
-                            Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();
+
+                            final Dialog dialog = new Dialog(CategoryDetails.this);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setCancelable(true);
+                            dialog.setContentView(R.layout.success_alert);
+                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            ImageView successImage = (ImageView) dialog.findViewById(R.id.successAlert_image);
+                            TextView successHead = (TextView) dialog.findViewById(R.id.successAlert_header);
+                            TextView successMessage = (TextView) dialog.findViewById(R.id.successAlert_message);
+                            Button dialogButton = (Button) dialog.findViewById(R.id.successAlert_button);
+
+                            Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/BalooBhai-Regular.ttf");
+
+                            successHead.setTypeface(custom_font);
+                            successMessage.setTypeface(custom_font);
+
+                            successHead.setText("Error!");
+                            successMessage.setText(object.getString("message"));
+                            successImage.setImageDrawable(getResources().getDrawable(R.drawable.img_fail));
+                            dialogButton.setText("Try Again");
+
+
+                            dialogButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            dialog.show();
+
                         }
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();

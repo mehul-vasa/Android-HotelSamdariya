@@ -60,13 +60,16 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 public class HotelRoomPage extends AppCompatActivity {
 
+    ImageView backBtn;
+    TextView actionTitle;
+
     WebView aboutWebview;
 
     RecyclerView roomCategoryList, banquetCategoryList, testimonialsList, videosList, aminitiesListview;
 
     LinearLayout phoneLay, emailLay, addressLay, aboutLay, contactLay;
     LinearLayout contactViewcontainer;
-    TextView phoneTV, emailTV, addressTV, banquetHeader, videoHeader;
+    TextView averageRatingTV, phoneTV, emailTV, addressTV, banquetHeader, videoHeader;
     CardView testimonialsLay, aminitiesLay, policyLay;
 
     TextView hotelNameTV, hotelLocationTV,  viewAllBtn;
@@ -106,6 +109,8 @@ public class HotelRoomPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_page);
 
+        backBtn = findViewById(R.id.hotel_details_backBtn);
+        actionTitle = findViewById(R.id.hotel_details_action_title);
 
         hotelNameTV = findViewById(R.id.hotel_details_hotelName);
         hotelLocationTV = findViewById(R.id.hotel_details_hotellocationTV);
@@ -130,7 +135,7 @@ public class HotelRoomPage extends AppCompatActivity {
 
         viewAllBtn = findViewById(R.id.hotel_viewall_btn);
 
-
+        averageRatingTV = findViewById(R.id.hotel_details_avgRatingTV);
         phoneLay = findViewById(R.id.hotel_about_phoneLay);
         emailLay = findViewById(R.id.hotel_about_mailLay);
         addressLay = findViewById(R.id.hotel_about_addressLay);
@@ -160,9 +165,6 @@ public class HotelRoomPage extends AppCompatActivity {
 
             }
         });
-
-
-
 
         roomAdapter = new RoomCategoriesAdapter(HotelRoomPage.this, roomCatIdList, roomCatNameList, roomCatDescList, roomCatImageList, roomCatTerifList,"room", getIntent().getStringExtra(Constants.hotelId), getIntent().getStringExtra(Constants.bookingParams));
         roomCategoryList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -223,6 +225,13 @@ public class HotelRoomPage extends AppCompatActivity {
         });
 
         getHotelDetailsApi();
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -328,16 +337,6 @@ public class HotelRoomPage extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private void getHotelDetailsApi () {
 
@@ -363,7 +362,10 @@ public class HotelRoomPage extends AppCompatActivity {
                             JSONObject hotelData = object.getJSONObject("hotel");
 
                             hotelNameTV.setText(hotelData.getString("hotel_name").split(",")[0]);
+                            actionTitle.setText(hotelData.getString("hotel_name").split(",")[0]);
                             hotelLocationTV.setText(hotelData.getString("hotel_name").split(",")[1]);
+
+                            averageRatingTV.setText(hotelData.getString("avgRating"));
 
                             aboutWebview.loadData(hotelData.getString("hotel_desc"), "text/html", "utf-8");
 
@@ -430,6 +432,8 @@ public class HotelRoomPage extends AppCompatActivity {
                                 featuredImageVP.startAutoScroll();
                             }
 
+
+
                             JSONArray videoData = object.getJSONArray("videos");
                             videoAdapter.notifyDataSetChanged();
                             if(videoData.length() == 0) {
@@ -492,8 +496,6 @@ public class HotelRoomPage extends AppCompatActivity {
         featuredImageVP.startAutoScroll();
     }
 
-    public void setUpBookingParams() {
-        String hotelId;
-    }
+
 
 }

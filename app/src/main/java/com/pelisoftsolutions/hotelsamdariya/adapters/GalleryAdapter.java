@@ -1,12 +1,14 @@
 package com.pelisoftsolutions.hotelsamdariya.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.pelisoftsolutions.hotelsamdariya.ImageGallery;
 import com.pelisoftsolutions.hotelsamdariya.R;
 import com.squareup.picasso.Picasso;
 
@@ -47,6 +49,16 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         Picasso.with(context).load(imageUrlList.get(position)).fit().into(holder.imageview);
+
+        holder.imageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent asd = new Intent(context, ImageGallery.class);
+                asd.putStringArrayListExtra("imageUrlList", imageUrlList);
+                context.startActivity(asd);
+            }
+        });
+
     }
 
     @Override

@@ -11,7 +11,8 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangePassword"></activity>
+        <activity android:name=".ImageGallery"></activity>
+        <activity android:name=".ChangePassword" />
         <activity android:name=".OtpVerification" />
         <activity android:name=".Dashboard" />
         <activity android:name=".ListActivity" />

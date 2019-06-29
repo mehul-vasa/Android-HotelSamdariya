@@ -2,6 +2,7 @@ package com.pelisoftsolutions.hotelsamdariya;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,13 +53,16 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 public class HotelPage extends AppCompatActivity {
 
+    ImageView backBtn;
+    TextView actionTitle;
+
     WebView aboutWebview;
 
     RecyclerView roomCategoryList, banquetCategoryList, testimonialsList, videosList, aminitiesListview;
 
     LinearLayout phoneLay, emailLay, addressLay, aboutLay, contactLay;
     LinearLayout contactViewcontainer;
-    TextView phoneTV, emailTV, addressTV, banquetHeader, videoHeader;
+    TextView averageRatingTV, phoneTV, emailTV, addressTV, banquetHeader, videoHeader;
     CardView testimonialsLay, aminitiesLay, policyLay;
 
     TextView hotelNameTV, hotelLocationTV,  viewAllBtn;
@@ -68,6 +72,7 @@ public class HotelPage extends AppCompatActivity {
     FeaturedVideoAdapter videoAdapter;
     AminitiesAdapter aminitiesAdapter;
     MyListAdapter banquetAdapter;
+    TestimonialsAdapter bottomSheetAdapter;
 
     ArrayList<String> roomCatIdList = new ArrayList<>();
     ArrayList<String> roomCatNameList = new ArrayList<>();
@@ -101,6 +106,9 @@ public class HotelPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_page);
 
+        backBtn = findViewById(R.id.hotel_details_backBtn);
+        actionTitle = findViewById(R.id.hotel_details_action_title);
+
         hotelNameTV = findViewById(R.id.hotel_details_hotelName);
         hotelLocationTV = findViewById(R.id.hotel_details_hotellocationTV);
 
@@ -129,6 +137,7 @@ public class HotelPage extends AppCompatActivity {
         emailLay = findViewById(R.id.hotel_about_mailLay);
         addressLay = findViewById(R.id.hotel_about_addressLay);
 
+        averageRatingTV = findViewById(R.id.hotel_details_avgRatingTV);
         phoneTV = findViewById(R.id.hotel_about_phoneTV);
         emailTV = findViewById(R.id.hotel_about_mailTV);
         addressTV = findViewById(R.id.hotel_about_addressTV);
@@ -167,9 +176,7 @@ public class HotelPage extends AppCompatActivity {
         viewAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent asd = new Intent(getApplicationContext(), Testimonials.class);
-                asd.putExtra("hotelId", getIntent().getStringExtra(Constants.hotelId));
-                startActivity(asd);
+                openListBottomSheet();
             }
         });
 
@@ -197,6 +204,13 @@ public class HotelPage extends AppCompatActivity {
         });
 
         getHotelDetailsApi();
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -235,7 +249,10 @@ public class HotelPage extends AppCompatActivity {
                             JSONObject hotelData = object.getJSONObject("hotel");
 
                             hotelNameTV.setText(hotelData.getString("hotel_name").split(",")[0]);
+                            actionTitle.setText(hotelData.getString("hotel_name").split(",")[0]);
                             hotelLocationTV.setText(hotelData.getString("hotel_name").split(",")[1]);
+
+                            averageRatingTV.setText(hotelData.getString("avgRating"));
 
                             aboutWebview.loadData(hotelData.getString("hotel_desc"), "text/html", "utf-8");
 
@@ -358,126 +375,6 @@ public class HotelPage extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-//    private void getHotelDetailsApi () {
-//
-//        final ProgressDialog pd = new ProgressDialog(this);
-//        pd.setMessage("Loading");
-//        pd.setCancelable(false);
-//        pd.show();
-//
-//        String url = Constants.getHotelDetailsUrl;
-//        Log.e("URL", url);
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String result) {
-//                if (result != null) {
-//                    pd.dismiss();
-//                    try {
-//                        Log.e("Result", result);
-//                        JSONObject object = new JSONObject(result);
-//
-//                        String status = object.getString("status");
-//                        if(status.equals("1")) {
-//
-//                            JSONObject hotelData = object.getJSONObject("hotel");
-//
-//                            hotelNameTV.setText(hotelData.getString("hotel_name").split(",")[0]);
-//                            hotelLocationTV.setText(hotelData.getString("hotel_name").split(",")[1]);
-//                            aboutWebview.loadData(hotelData.getString("hotel_desc"), "text/html", "utf-8");
-//
-//                            String aminities = hotelData.getString("hotel_aminities");
-//                            List<String> amList = Arrays.asList(aminities.split(","));
-//                            for (int i = 0; i<amList.size(); i++) {
-//                                aminitiesList.add(amList.get(i));
-//                            }
-//                            aminitiesAdapter.notifyDataSetChanged();
-//
-//                            phoneNo = hotelData.getString("hotel_contact");
-//                            emailId = hotelData.getString("hotel_email");
-//                            address = hotelData.getString("hotel_address");
-//
-//                            phoneTV.setText(phoneNo);
-//                            emailTV.setText(emailId);
-//                            addressTV.setText(address);
-//
-//                            JSONArray roomData = object.getJSONArray("room");
-//                            for(int i =0; i<roomData.length(); i++) {
-//                                roomCatIdList.add(roomData.getJSONObject(i).getString("category_id"));
-//                                roomCatNameList.add(roomData.getJSONObject(i).getString("category_name"));
-//                                roomCatImageList.add(roomData.getJSONObject(i).getString("category_image"));
-//                                roomCatTerifList.add(roomData.getJSONObject(i).getString("category_price"));
-//                            }
-//                            roomAdapter.notifyDataSetChanged();
-//
-
-//
-//                            JSONArray testimonialData = object.getJSONArray("testimonial");
-//                            for(int i =0; i<testimonialData.length(); i++) {
-//                                testimonialIdList.add(testimonialData.getJSONObject(i).getString("testimonial_id"));
-//                                testimonialNameList.add(testimonialData.getJSONObject(i).getString("user_name"));
-//                                testimonialRatingList.add(testimonialData.getJSONObject(i).getString("rating"));
-//                                testimonialCommentList.add(testimonialData.getJSONObject(i).getString("comment"));
-//                            }
-//                            testimonialsAdapter.notifyDataSetChanged();
-//
-//                            JSONArray imagesArray = object.getJSONArray("images");
-//                            if(imagesArray.length() != 0) {
-//                                for(int i = 0; i<imagesArray.length(); i++) {
-//                                    imageUrlList.add(imagesArray.getJSONObject(i).getString("image_path"));
-//                                }
-//                                adapter.notifyDataSetChanged();
-//                                featuredImageVP.setAdapter(adapter.setInfiniteLoop(true));
-//
-//                                featuredImageVP.setInterval(2000);
-//                                featuredImageVP.startAutoScroll();
-//                            }
-//
-//                            JSONArray videoData = object.getJSONArray("videos");
-//                            for(int i =0; i<videoData.length(); i++) {
-//                                videoUrlList.add(videoData.getJSONObject(i).getString("video_path"));
-//                                videoThumbUrlList.add(videoData.getJSONObject(i).getString("thumb_path"));
-//                            }
-//                            videoAdapter.notifyDataSetChanged();
-//
-//
-//                        } else {
-//                            Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();
-//                        }
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                } else {
-//                    pd.dismiss();
-//                    Toast.makeText(getApplicationContext(), R.string.noInternetMsg, Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//                        pd.dismiss();
-//                        Log.e("Volley Error", volleyError.toString());
-//                        Toast.makeText(HotelPage.this, R.string.slowInternetMsg, Toast.LENGTH_LONG).show();
-//                    }
-//                }) {
-//
-//            @Override
-//            public Map<String, String> getParams(){
-//                Map<String, String> params = new HashMap<>();
-//
-//                params.put("hotelId", getIntent().getStringExtra(Constants.hotelId));
-//                Log.e("Params", params.toString());
-//                return params;
-//            }
-//        };
-//        //Creating a Request Queue
-//        RequestQueue requestQueue = Volley.newRequestQueue(HotelPage.this);
-//
-//        //Adding request to the queue
-//        requestQueue.add(stringRequest);
-//    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -488,6 +385,108 @@ public class HotelPage extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         featuredImageVP.startAutoScroll();
+    }
+
+    private void openListBottomSheet() {
+
+        getTestimonialApi();
+
+        View view = getLayoutInflater().inflate(R.layout.bottomsheet_list, null);
+//        BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(view);
+//        behavior.setPeekHeight(300);
+
+        TextView header = view.findViewById(R.id.fees_bottomSheet_header);
+        ImageView crossBtn = view.findViewById(R.id.fees_bottomSheet_crossBtn);
+
+
+        final RecyclerView listview = view.findViewById(R.id.bottomsheet_listview);
+
+        bottomSheetAdapter = new TestimonialsAdapter(HotelPage.this, testimonialIdList, testimonialNameList, testimonialRatingList, testimonialCommentList);
+        listview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        listview.setItemAnimator(new DefaultItemAnimator());
+        listview.setAdapter(bottomSheetAdapter);
+
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+
+        dialog.setContentView(view);
+        dialog.show();
+
+        header.setText("REVIEWS");
+
+        crossBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void getTestimonialApi () {
+
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Loading");
+        pd.setCancelable(false);
+        pd.show();
+
+        String url = Constants.getTestimonialsUrl;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String result) {
+                if (result != null) {
+                    pd.dismiss();
+                    try {
+                        Log.e("Result", result);
+                        JSONObject object = new JSONObject(result);
+
+                        String status = object.getString("status");
+                        if(status.equals("1")) {
+                            testimonialIdList.clear(); testimonialNameList.clear(); testimonialRatingList.clear(); testimonialCommentList.clear();
+                            JSONArray testimonialData = object.getJSONArray("testimonials");
+                            for(int i =0; i<testimonialData.length(); i++) {
+                                testimonialIdList.add(testimonialData.getJSONObject(i).getString("testimonial_id"));
+                                testimonialNameList.add(testimonialData.getJSONObject(i).getString("user_name"));
+                                testimonialRatingList.add(testimonialData.getJSONObject(i).getString("rating"));
+                                testimonialCommentList.add(testimonialData.getJSONObject(i).getString("comment"));
+                            }
+                            bottomSheetAdapter.notifyDataSetChanged();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    pd.dismiss();
+                    Toast.makeText(getApplicationContext(), R.string.noInternetMsg, Toast.LENGTH_SHORT).show();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        pd.dismiss();
+                        Log.e("Volley Error", volleyError.toString());
+                        Toast.makeText(HotelPage.this, R.string.slowInternetMsg, Toast.LENGTH_LONG).show();
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<>();
+
+                params.put("hotelId", getIntent().getStringExtra(Constants.hotelId));
+                Log.e("testimonial params", params.toString() );
+                return params;
+            }
+        };
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(HotelPage.this);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
     }
 
     public void setUpBookingParams() {

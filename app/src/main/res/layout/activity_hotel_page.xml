@@ -18,7 +18,46 @@
             >
 
             <!--TODO APP BAR (date selection)-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/hotel_details_actionBar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                style="@style/CustomCardView"
+                app:cardCornerRadius="0dp"
+                >
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/hotel_details_backBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_back"
+                        android:tint="@color/black"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/hotel_details_action_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/hotel_details_backBtn"
+                        android:layout_marginLeft="10dp"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/heading"
+                        android:textColor="@color/fontPrimary"
+                        android:textStyle="bold"
+                        />
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.CardView>
 
 
             <LinearLayout
@@ -26,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-
+                android:layout_below="@+id/hotel_details_actionBar"
                 >
 
                 <android.support.v7.widget.CardView
@@ -102,9 +141,9 @@
                                 >
 
                                 <TextView
+                                    android:id="@+id/hotel_details_avgRatingTV"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="4.5"
                                     android:textSize="@dimen/primaryFont"
                                     android:textStyle="bold"
                                     android:textColor="@color/fontWhite"

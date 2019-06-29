@@ -152,6 +152,7 @@ public class BaseActivity extends Activity {
                     case R.id.nav_home:
                         Intent dashboard = new Intent(BaseActivity.this, Dashboard.class);
                         startActivity(dashboard);
+                        finish();
                         drawer.closeDrawer(START);
                         break;
 
@@ -159,6 +160,7 @@ public class BaseActivity extends Activity {
                         Intent profile = new Intent(BaseActivity.this, ListActivity.class);
                         profile.putExtra(Constants.source, "hotel");
                         startActivity(profile);
+                        finish();
                         drawer.closeDrawer(START);
                         break;
 
@@ -166,6 +168,7 @@ public class BaseActivity extends Activity {
                         Intent fees = new Intent(BaseActivity.this, ListActivity.class);
                         fees.putExtra(Constants.source, "banquet");
                         startActivity(fees);
+                        finish();
                         drawer.closeDrawer(START);
                         break;
 
@@ -173,6 +176,7 @@ public class BaseActivity extends Activity {
                         Intent classTimeTable = new Intent(BaseActivity.this, ChangePassword.class);
                         classTimeTable.putExtra(Constants.source, "about");
                         startActivity(classTimeTable);
+                        finish();
                         drawer.closeDrawer(START);
                         break;
 
