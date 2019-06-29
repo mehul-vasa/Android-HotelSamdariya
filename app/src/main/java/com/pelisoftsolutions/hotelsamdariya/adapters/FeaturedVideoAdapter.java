@@ -3,18 +3,14 @@ package com.pelisoftsolutions.hotelsamdariya.adapters;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.pelisoftsolutions.hotelsamdariya.HotelPage;
 import com.pelisoftsolutions.hotelsamdariya.R;
-import com.pelisoftsolutions.hotelsamdariya.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

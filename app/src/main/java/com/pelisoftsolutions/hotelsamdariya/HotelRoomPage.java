@@ -1,30 +1,21 @@
 package com.pelisoftsolutions.hotelsamdariya;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,24 +25,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker;
-import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPickerListener;
 import com.pelisoftsolutions.hotelsamdariya.adapters.AminitiesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.CategoryImagesViewPagerAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.FeaturedVideoAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.RoomCategoriesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.TestimonialsAdapter;
 import com.pelisoftsolutions.hotelsamdariya.utils.Constants;
-import com.pelisoftsolutions.hotelsamdariya.utils.Utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

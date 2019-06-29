@@ -1,8 +1,5 @@
 package com.pelisoftsolutions.hotelsamdariya.utils;
 
-import android.util.Log;
-import android.widget.Toast;
-
 public class Constants {
 
     public static final Boolean isDevelopmentModeOn = false;

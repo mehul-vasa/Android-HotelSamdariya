@@ -33,8 +33,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker;
-import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPickerListener;
 import com.pelisoftsolutions.hotelsamdariya.adapters.GalleryAdapter;
 import com.pelisoftsolutions.hotelsamdariya.utils.Constants;
 import com.pelisoftsolutions.hotelsamdariya.utils.Utility;

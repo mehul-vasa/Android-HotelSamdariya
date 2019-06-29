@@ -11,19 +11,19 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".ImageGallery"></activity>
-        <activity android:name=".ChangePassword" />
-        <activity android:name=".OtpVerification" />
-        <activity android:name=".Dashboard" />
-        <activity android:name=".ListActivity" />
+        <activity android:name="com.pelisoftsolutions.hotelsamdariya.ImageGallery"></activity>
+        <activity android:name="com.pelisoftsolutions.hotelsamdariya.ChangePassword" />
+        <activity android:name="com.pelisoftsolutions.hotelsamdariya.OtpVerification" />
+        <activity android:name="com.pelisoftsolutions.hotelsamdariya.Dashboard" />
+        <activity android:name="com.pelisoftsolutions.hotelsamdariya.ListActivity" />
         <activity
-            android:name=".CategoryDetails"
+            android:name="com.pelisoftsolutions.hotelsamdariya.CategoryDetails"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BanuquetDetail"
+            android:name="com.pelisoftsolutions.hotelsamdariya.BanuquetDetail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Splash"
+            android:name="com.pelisoftsolutions.hotelsamdariya.Splash"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,23 +31,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Testimonials" />
+        <activity android:name="com.pelisoftsolutions.hotelsamdariya.Testimonials" />
         <activity
-            android:name=".Test"
+            android:name="com.pelisoftsolutions.hotelsamdariya.Test"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".HotelPage"
+            android:name="com.pelisoftsolutions.hotelsamdariya.HotelPage"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SignUp" />
-        <activity android:name=".ForgotPassword" />
+        <activity android:name="com.pelisoftsolutions.hotelsamdariya.SignUp" />
+        <activity android:name="com.pelisoftsolutions.hotelsamdariya.ForgotPassword" />
         <activity
-            android:name=".Login"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BaseActivity"
+            android:name="com.pelisoftsolutions.hotelsamdariya.Login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".HotelRoomPage"
+            android:name="com.pelisoftsolutions.hotelsamdariya.BaseActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.pelisoftsolutions.hotelsamdariya.HotelRoomPage"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

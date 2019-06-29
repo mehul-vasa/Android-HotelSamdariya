@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.pelisoftsolutions.hotelsamdariya.BanuquetDetail;
 import com.pelisoftsolutions.hotelsamdariya.HotelPage;
-import com.pelisoftsolutions.hotelsamdariya.ListActivity;
 import com.pelisoftsolutions.hotelsamdariya.R;
 import com.pelisoftsolutions.hotelsamdariya.utils.Constants;
 import com.squareup.picasso.Picasso;

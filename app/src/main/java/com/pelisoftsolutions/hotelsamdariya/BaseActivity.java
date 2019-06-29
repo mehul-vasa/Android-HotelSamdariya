@@ -1,57 +1,24 @@
 package com.pelisoftsolutions.hotelsamdariya;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.NestedScrollView;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker;
-import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPickerListener;
-import com.pelisoftsolutions.hotelsamdariya.adapters.BanquetAdapter;
-import com.pelisoftsolutions.hotelsamdariya.adapters.FeaturedImagesAdapter;
-import com.pelisoftsolutions.hotelsamdariya.adapters.OfferAdapter;
 import com.pelisoftsolutions.hotelsamdariya.utils.Constants;
 import com.pelisoftsolutions.hotelsamdariya.utils.DrawerArrowDrawable;
 import com.pelisoftsolutions.hotelsamdariya.utils.Utility;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import static android.view.Gravity.START;
 

@@ -18,8 +18,6 @@ import com.android.volley.toolbox.Volley;
 import com.pelisoftsolutions.hotelsamdariya.R;
 import com.pelisoftsolutions.hotelsamdariya.adapters.TestimonialsAdapter;
 import com.pelisoftsolutions.hotelsamdariya.utils.Constants;
-import com.pelisoftsolutions.hotelsamdariya.utils.Utility;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;

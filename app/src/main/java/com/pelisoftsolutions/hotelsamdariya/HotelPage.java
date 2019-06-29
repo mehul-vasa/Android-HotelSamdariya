@@ -1,23 +1,19 @@
 package com.pelisoftsolutions.hotelsamdariya;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,15 +25,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.pelisoftsolutions.hotelsamdariya.adapters.AminitiesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.CategoryImagesViewPagerAdapter;
-import com.pelisoftsolutions.hotelsamdariya.adapters.FeaturedImagesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.FeaturedVideoAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.HotelRoomAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.MyListAdapter;
-import com.pelisoftsolutions.hotelsamdariya.adapters.RoomCategoriesAdapter;
 import com.pelisoftsolutions.hotelsamdariya.adapters.TestimonialsAdapter;
 import com.pelisoftsolutions.hotelsamdariya.utils.Constants;
-import com.pelisoftsolutions.hotelsamdariya.utils.Utility;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
