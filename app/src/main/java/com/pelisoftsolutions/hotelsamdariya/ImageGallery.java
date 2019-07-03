@@ -37,11 +37,11 @@ public class ImageGallery extends Activity {
 
         galleryView.setAdapter(new myImageAdapter(this));
 
+        Picasso.with(ImageGallery.this).load(imageUrl.get(0)).placeholder(R.drawable.logo).into(imgView);
+
         galleryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int i, long id) {
                 Picasso.with(ImageGallery.this).load(imageUrl.get(i)).placeholder(R.drawable.logo).into(imgView);
-                int imagePosition = i + 1;
-                Toast.makeText(getApplicationContext(), "You have selected image = " + imageUrl.get(i), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -54,10 +54,8 @@ public class ImageGallery extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ImageView mgalleryView = new ImageView(mcontext);
             Picasso.with(mcontext).load(imageUrl.get(position)).placeholder(R.drawable.logo).into(mgalleryView);
-//            .setImageResource(imageResource[position]);
             mgalleryView.setLayoutParams(new Gallery.LayoutParams(150, 150));
             mgalleryView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            //imgView.setImageResource(R.drawable.image_border);
             mgalleryView.setPadding(3, 3, 3, 3);
 
             return mgalleryView;

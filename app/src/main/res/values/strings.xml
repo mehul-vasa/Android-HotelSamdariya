@@ -6,6 +6,7 @@
 
     <string name="placeholder"> Placeholder String </string>
     <string name="welcome"> Welcome, </string>
+    <string name="loginMessage"> Please login to confirm your booking </string>
 
     <!--MENU-->
     <string name="home">Home</string>

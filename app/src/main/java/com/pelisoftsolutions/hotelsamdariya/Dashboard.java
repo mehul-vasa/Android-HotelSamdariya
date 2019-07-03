@@ -141,49 +141,89 @@ public class Dashboard extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                if(Utility.getSharedPreferencesBoolean(getApplicationContext(), Constants.loginStatus)) {
 
-                    if(selectedHotelId.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Please Select Hotel First", Toast.LENGTH_LONG).show();
-                    } else if (selectedCheckInDate.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
-                    } else if (selectedCheckOutDate.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
-                    } else if (selectedPersonQty.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Please Select Number Of Person", Toast.LENGTH_LONG).show();
-                    } else if (selectedRoomQty.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
-                    } else {
-                        bookingParams.put("userId", Utility.getSharedPreferences(getApplicationContext(), Constants.userId));
-                        bookingParams.put("hotelId", selectedHotelId);
-                        bookingParams.put("catId", "0");
-                        bookingParams.put("catType", "room");
-                        bookingParams.put("startDate", selectedCheckInDate);
-                        bookingParams.put("endDate", selectedCheckOutDate);
-                        bookingParams.put("pax", selectedPersonQty);
-                        bookingParams.put("qty", selectedRoomQty);
 
-                        JSONObject bookingJson;
-                        try {
-                            bookingJson = new JSONObject(bookingParams.toString());
-                        } catch (JSONException w) {
-                            bookingJson = new JSONObject();
-                            Log.e("parsing error", w.toString());
-                        }
+                if(selectedHotelId.isEmpty() || selectedHotelId.equals("0") ) {
+                    Toast.makeText(getApplicationContext(), "Please Select Hotel First", Toast.LENGTH_LONG).show();
+                } else if (selectedCheckInDate.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
+                } else if (selectedCheckOutDate.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
+                } else if (selectedPersonQty.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please Select Number Of Person", Toast.LENGTH_LONG).show();
+                } else if (selectedRoomQty.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
+                } else {
+                    bookingParams.put("userId", Utility.getSharedPreferences(getApplicationContext(), Constants.userId));
+                    bookingParams.put("hotelId", selectedHotelId);
+                    bookingParams.put("catId", "0");
+                    bookingParams.put("catType", "room");
+                    bookingParams.put("startDate", selectedCheckInDate);
+                    bookingParams.put("endDate", selectedCheckOutDate);
+                    bookingParams.put("pax", selectedPersonQty);
+                    bookingParams.put("qty", selectedRoomQty);
 
-                        Log.e("booking json", bookingJson.toString());
-
-                        Intent asd = new Intent(getApplicationContext(), HotelRoomPage.class);
-                        asd.putExtra(Constants.hotelId, selectedHotelId);
-                        asd.putExtra(Constants.bookingParams, bookingJson.toString());
-                        startActivity(asd);
-
+                    JSONObject bookingJson;
+                    try {
+                        bookingJson = new JSONObject(bookingParams.toString());
+                    } catch (JSONException w) {
+                        bookingJson = new JSONObject();
+                        Log.e("parsing error", w.toString());
                     }
 
-                } else {
-                    startActivity(new Intent(getApplicationContext(), Login.class));
-                    finish();
+                    Log.e("booking json", bookingJson.toString());
+
+                    Intent asd = new Intent(getApplicationContext(), HotelRoomPage.class);
+                    asd.putExtra(Constants.hotelId, selectedHotelId);
+                    asd.putExtra(Constants.bookingParams, bookingJson.toString());
+                    startActivity(asd);
+
                 }
+
+
+//                if(Utility.getSharedPreferencesBoolean(getApplicationContext(), Constants.loginStatus)) {
+//
+//                    if(selectedHotelId.isEmpty() || selectedHotelId.equals("0") ) {
+//                        Toast.makeText(getApplicationContext(), "Please Select Hotel First", Toast.LENGTH_LONG).show();
+//                    } else if (selectedCheckInDate.isEmpty()) {
+//                        Toast.makeText(getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
+//                    } else if (selectedCheckOutDate.isEmpty()) {
+//                        Toast.makeText(getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
+//                    } else if (selectedPersonQty.isEmpty()) {
+//                        Toast.makeText(getApplicationContext(), "Please Select Number Of Person", Toast.LENGTH_LONG).show();
+//                    } else if (selectedRoomQty.isEmpty()) {
+//                        Toast.makeText(getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
+//                    } else {
+//                        bookingParams.put("userId", Utility.getSharedPreferences(getApplicationContext(), Constants.userId));
+//                        bookingParams.put("hotelId", selectedHotelId);
+//                        bookingParams.put("catId", "0");
+//                        bookingParams.put("catType", "room");
+//                        bookingParams.put("startDate", selectedCheckInDate);
+//                        bookingParams.put("endDate", selectedCheckOutDate);
+//                        bookingParams.put("pax", selectedPersonQty);
+//                        bookingParams.put("qty", selectedRoomQty);
+//
+//                        JSONObject bookingJson;
+//                        try {
+//                            bookingJson = new JSONObject(bookingParams.toString());
+//                        } catch (JSONException w) {
+//                            bookingJson = new JSONObject();
+//                            Log.e("parsing error", w.toString());
+//                        }
+//
+//                        Log.e("booking json", bookingJson.toString());
+//
+//                        Intent asd = new Intent(getApplicationContext(), HotelRoomPage.class);
+//                        asd.putExtra(Constants.hotelId, selectedHotelId);
+//                        asd.putExtra(Constants.bookingParams, bookingJson.toString());
+//                        startActivity(asd);
+//
+//                    }
+//
+//                } else {
+//                    startActivity(new Intent(getApplicationContext(), Login.class));
+//                    finish();
+//                }
 
             }
         });
@@ -219,11 +259,20 @@ public class Dashboard extends BaseActivity {
                 int starthMonth = c.get(Calendar.MONTH);
                 int startDay = c.get(Calendar.DAY_OF_MONTH);
 
+                if(!selectedCheckInDate.isEmpty()) {
+                    startYear = Integer.parseInt(selectedCheckInDate.split("-")[0]);
+                    starthMonth = Integer.parseInt(selectedCheckInDate.split("-")[1]) - 1;
+                    startDay = Integer.parseInt(selectedCheckInDate.split("-")[2]);
+                }
+
+                Log.e("startDay", startDay+"..");
+
                 final DatePickerDialog datePickerDialog = new DatePickerDialog(Dashboard.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        selectedCheckInDate = year+"-"+(++month)+"-"+dayOfMonth;
-                        checkInDateTV.setText(selectedCheckInDate);
+                        selectedCheckInDate = year+"-"+(month+1)+"-"+dayOfMonth;
+                        checkInDateTV.setText(dayOfMonth + "-" + (month+1) + "-" + year );
+                        Log.e("selectedCheckInDate", selectedCheckInDate);
                     }
                 }, startYear, starthMonth, startDay);
 
@@ -241,11 +290,18 @@ public class Dashboard extends BaseActivity {
                 int starthMonth = c.get(Calendar.MONTH);
                 int startDay = c.get(Calendar.DAY_OF_MONTH);
 
+                if(!selectedCheckOutDate.isEmpty()) {
+                    startYear = Integer.parseInt(selectedCheckOutDate.split("-")[0]);
+                    starthMonth = Integer.parseInt(selectedCheckOutDate.split("-")[1]) - 1;
+                    startDay = Integer.parseInt(selectedCheckOutDate.split("-")[2]);
+                }
+
+
                 final DatePickerDialog datePickerDialog = new DatePickerDialog(Dashboard.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                        String checkOut = year+"-"+(++month)+"-"+dayOfMonth;
+                        String checkOut = year+"-"+(month + 1)+"-"+dayOfMonth;
 
                         Date checkInDate = Utility.convertStringToDate(selectedCheckInDate, "yyyy-MM-dd");
                         Date checkOutDate = Utility.convertStringToDate(checkOut, "yyyy-MM-dd");
@@ -256,11 +312,8 @@ public class Dashboard extends BaseActivity {
                         } else {
 
                             selectedCheckOutDate = checkOut;
-                            checkOutDateTV.setText(selectedCheckOutDate);
+                            checkOutDateTV.setText(dayOfMonth + "-" + (month+1) + "-" + year );
                         }
-
-
-
 
                     }
                 }, startYear, starthMonth, startDay);
@@ -325,12 +378,14 @@ public class Dashboard extends BaseActivity {
 
                             JSONArray hotelData = object.getJSONArray("hotels");
 
+                            hotelIdList.add("0");
+                            hotelNameList.add("Select Hotel");
+
                             for (int i = 0; i < hotelData.length(); i++) {
                                 hotelIdList.add(hotelData.getJSONObject(i).getString("hotel_id"));
                                 hotelNameList.add(hotelData.getJSONObject(i).getString("hotel_name"));
                                 hotelImageList.add(hotelData.getJSONObject(i).getString("featured_image"));
                             }
-                            imagesAdapter.notifyDataSetChanged();
 
                             ArrayAdapter hotelListAdapter = new ArrayAdapter(Dashboard.this, android.R.layout.simple_spinner_item, hotelNameList.toArray());
                             hotelListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -473,7 +528,7 @@ public class Dashboard extends BaseActivity {
                                 offerHeader.setVisibility(View.GONE);
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();
                             offersList.setVisibility(View.GONE);
                             offerHeader.setVisibility(View.GONE);
                         }
@@ -483,7 +538,7 @@ public class Dashboard extends BaseActivity {
                     }
                 } else {
                     pd.dismiss();
-                    Toast.makeText(getApplicationContext(), R.string.noInternetMsg, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), R.string.noInternetMsg, Toast.LENGTH_SHORT).show();
                 }
             }
         },
@@ -492,7 +547,7 @@ public class Dashboard extends BaseActivity {
                     public void onErrorResponse(VolleyError volleyError) {
                         pd.dismiss();
                         Log.e("Volley Error", volleyError.toString());
-                        Toast.makeText(Dashboard.this, R.string.slowInternetMsg, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(Dashboard.this, R.string.slowInternetMsg, Toast.LENGTH_LONG).show();
                     }
                 }) {
 

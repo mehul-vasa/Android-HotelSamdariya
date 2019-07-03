@@ -56,13 +56,17 @@ public class SignUp extends AppCompatActivity {
 
                 if(nameET.getText().toString().isEmpty()) {
                     nameET.setError("Please enter a valid name");
-                } if (emailET.getText().toString().isEmpty()) {
+                } else if (emailET.getText().toString().isEmpty()) {
                     emailET.setError("Please enter your email id");
-                } if (passwordET.getText().toString().isEmpty()) {
+                } else if(contactET.getText().toString().startsWith("+") ) {
+                    contactET.setError("Please enter a valid mobile number without country code");
+                } else if(contactET.getText().toString().length() != 10) {
+                    contactET.setError("Please enter a valid mobile number");
+                } else if (passwordET.getText().toString().isEmpty()) {
                     passwordET.setError("Please enter your password");
-                } if (repassET.getText().toString().isEmpty()) {
+                } else if (repassET.getText().toString().isEmpty()) {
                     repassET.setError("Please re-enter your passsword");
-                } if (!passwordET.getText().toString().equals(repassET.getText().toString())) {
+                } else if (!passwordET.getText().toString().equals(repassET.getText().toString())) {
                     repassET.setError("Password do not match");
                 } else {
 

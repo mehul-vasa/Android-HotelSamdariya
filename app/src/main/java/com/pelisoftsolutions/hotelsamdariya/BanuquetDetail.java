@@ -3,11 +3,13 @@ package com.pelisoftsolutions.hotelsamdariya;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -92,7 +94,18 @@ public class BanuquetDetail extends AppCompatActivity {
         bookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openBottomSheet();
+                if(Utility.getSharedPreferencesBoolean(getApplicationContext(), Constants.loginStatus)) {
+                    openBottomSheet();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(BanuquetDetail.this);
+                    builder.setMessage(R.string.loginMessage);
+                    builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            startActivity(new Intent(getApplicationContext(), Login.class));
+                            finish();
+                        }
+                    });
+                }
             }
         });
 
@@ -264,32 +277,25 @@ public class BanuquetDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(Utility.getSharedPreferencesBoolean(getApplicationContext(), Constants.loginStatus)) {
-
-                    if (selectedCheckInDate.isEmpty()) {
-                        Toast.makeText(BanuquetDetail.this.getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
-                    } else if (selectedCheckOutDate.isEmpty()) {
-                        Toast.makeText(BanuquetDetail.this.getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
-                    } else if (eventTypeET.getText().toString().isEmpty()) {
-                        Toast.makeText(BanuquetDetail.this.getApplicationContext(), "Please Enter Type Of Event", Toast.LENGTH_LONG).show();
-                    } else {
-                        banquetBookingParams.put("userId", Utility.getSharedPreferences(BanuquetDetail.this.getApplicationContext(), Constants.userId));
-                        banquetBookingParams.put("hotelId", getIntent().getStringExtra("hotelId"));
-                        banquetBookingParams.put("catId", getIntent().getStringExtra("id"));
-                        banquetBookingParams.put("catType", "banquet");
-                        banquetBookingParams.put("startDate", selectedCheckInDate);
-                        banquetBookingParams.put("endDate", selectedCheckOutDate);
-                        banquetBookingParams.put("eventType", eventTypeET.getText().toString());
-
-                        Log.e("Banquet Booking Params", banquetBookingParams.toString());
-
-                        bookingApi();
-
-                    }
-
+                if (selectedCheckInDate.isEmpty()) {
+                    Toast.makeText(BanuquetDetail.this.getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
+                } else if (selectedCheckOutDate.isEmpty()) {
+                    Toast.makeText(BanuquetDetail.this.getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
+                } else if (eventTypeET.getText().toString().isEmpty()) {
+                    Toast.makeText(BanuquetDetail.this.getApplicationContext(), "Please Enter Type Of Event", Toast.LENGTH_LONG).show();
                 } else {
-                    startActivity(new Intent(getApplicationContext(), Login.class));
-                    finish();
+                    banquetBookingParams.put("userId", Utility.getSharedPreferences(BanuquetDetail.this.getApplicationContext(), Constants.userId));
+                    banquetBookingParams.put("hotelId", getIntent().getStringExtra("hotelId"));
+                    banquetBookingParams.put("catId", getIntent().getStringExtra("id"));
+                    banquetBookingParams.put("catType", "banquet");
+                    banquetBookingParams.put("startDate", selectedCheckInDate);
+                    banquetBookingParams.put("endDate", selectedCheckOutDate);
+                    banquetBookingParams.put("eventType", eventTypeET.getText().toString());
+
+                    Log.e("Banquet Booking Params", banquetBookingParams.toString());
+
+                    bookingApi();
+
                 }
 
             }

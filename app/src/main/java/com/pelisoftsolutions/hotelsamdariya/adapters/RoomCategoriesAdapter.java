@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -46,6 +48,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.internal.Util;
 
 public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAdapter.MyViewHolder> {
 
@@ -126,20 +130,21 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
             @Override
             public void onClick(View v) {
 
-                if(source.equals("room")) {
-                    Intent asd = new Intent(context, CategoryDetails.class);
-                    asd.putExtra("source", source);
-                    asd.putExtra("hotelId", hotelId);
-                    asd.putExtra("id", catIdList.get(position));
-                    asd.putExtra(Constants.bookingParams, bookingData);
-                    context.startActivity(asd);
-                } else {
-                    Intent asd = new Intent(context, BanuquetDetail.class);
-                    asd.putExtra("source", source);
-                    asd.putExtra("hotelId", hotelId);
-                    asd.putExtra("id", catIdList.get(position));
-                    context.startActivity(asd);
-                }
+                //TODO category detail
+//                if(source.equals("room")) {
+//                    Intent asd = new Intent(context, CategoryDetails.class);
+//                    asd.putExtra("source", source);
+//                    asd.putExtra("hotelId", hotelId);
+//                    asd.putExtra("id", catIdList.get(position));
+//                    asd.putExtra(Constants.bookingParams, bookingData);
+//                    context.startActivity(asd);
+//                } else {
+//                    Intent asd = new Intent(context, BanuquetDetail.class);
+//                    asd.putExtra("source", source);
+//                    asd.putExtra("hotelId", hotelId);
+//                    asd.putExtra("id", catIdList.get(position));
+//                    context.startActivity(asd);
+//                }
 
             }
         });
@@ -148,19 +153,34 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
             @Override
             public void onClick(View v) {
 
-                Log.e("Source", source);
+                if(Utility.getSharedPreferencesBoolean(context, Constants.loginStatus)) {
 
-                JSONObject bookingJson;
+                    Log.e("Source", source);
 
-                try {
-                    bookingJson = new JSONObject(bookingData);
-                } catch (JSONException e) {
-                    bookingJson = new JSONObject();
+                    JSONObject bookingJson;
+
+                    try {
+                        bookingJson = new JSONObject(bookingData);
+                    } catch (JSONException e) {
+                        bookingJson = new JSONObject();
+                    }
+
+                    Log.e("booking params sp", bookingData);
+
+                    openBottomSheet(position, bookingJson);
+
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage(R.string.loginMessage);
+                    builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            context.startActivity(new Intent(context.getApplicationContext(), Login.class));
+                            context.finish();
+                        }
+                    });
+                    builder.setCancelable(false);
+                    builder.show();
                 }
-
-                Log.e("booking params sp", bookingData);
-
-                openBottomSheet(position, bookingJson);
             }
         });
 
@@ -298,43 +318,60 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
                 @Override
                 public void onClick(View view) {
 
-                    String name = nameET.getText().toString();
-                    String contact = contactET.getText().toString();
+                    if(Utility.getSharedPreferencesBoolean(context.getApplicationContext(), Constants.loginStatus)) {
 
-                    if(name.isEmpty()) {
-                        nameET.setError("Please enter guest name");
-                    } else if (contact.isEmpty()) {
-                        contactET.setError("Please enter guest contact number");
-                    } else if (contact.length() != 10) {
-                        contactET.setError("Please enter a valid guest contact number");
-                    } else if (selectedCheckInDate.isEmpty()) {
-                        Toast.makeText(context.getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
-                    } else if (selectedCheckOutDate.isEmpty()) {
-                        Toast.makeText(context.getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
-                    } else if (selectedPersonQty.isEmpty()) {
-                        Toast.makeText(context.getApplicationContext(), "Please Select Number Of Person", Toast.LENGTH_LONG).show();
-                    } else if (selectedRoomQty.isEmpty()) {
-                        Toast.makeText(context.getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
+                        String name = nameET.getText().toString();
+                        String contact = contactET.getText().toString();
+
+                        if(name.isEmpty()) {
+                            nameET.setError("Please enter guest name");
+                        } else if (contact.isEmpty()) {
+                            contactET.setError("Please enter guest contact number");
+                        } else if (contact.length() != 13) {
+                            contactET.setError("Please enter a valid guest contact number");
+                        } else if (selectedCheckInDate.isEmpty()) {
+                            Toast.makeText(context.getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
+                        } else if (selectedCheckOutDate.isEmpty()) {
+                            Toast.makeText(context.getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
+                        } else if (selectedPersonQty.isEmpty()) {
+                            Toast.makeText(context.getApplicationContext(), "Please Select Number Of Person", Toast.LENGTH_LONG).show();
+                        } else if (selectedRoomQty.isEmpty()) {
+                            Toast.makeText(context.getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
+                        } else {
+                            //TODO booking process
+                            bookingParams.put("userId", Utility.getSharedPreferences(context.getApplicationContext(), Constants.userId));
+                            bookingParams.put("hotelId", hotelId);
+                            bookingParams.put("catId", catIdList.get(position));
+                            bookingParams.put("catType", "room");
+                            bookingParams.put("startDate", selectedCheckInDate);
+                            bookingParams.put("endDate", selectedCheckOutDate);
+                            bookingParams.put("pax", selectedPersonQty);
+                            bookingParams.put("qty", selectedRoomQty);
+                            bookingParams.put("eventType", "");
+                            bookingParams.put("gustName", name);
+                            bookingParams.put("gustContact", contact);
+
+                            Log.e("Booking Params", bookingParams.toString());
+
+                            //TODO booking api update
+                            bookingApi();
+
+                        }
+
                     } else {
-                        //TODO booking process
-                        bookingParams.put("userId", Utility.getSharedPreferences(context.getApplicationContext(), Constants.userId));
-                        bookingParams.put("hotelId", hotelId);
-                        bookingParams.put("catId", catIdList.get(position));
-                        bookingParams.put("catType", "room");
-                        bookingParams.put("startDate", selectedCheckInDate);
-                        bookingParams.put("endDate", selectedCheckOutDate);
-                        bookingParams.put("pax", selectedPersonQty);
-                        bookingParams.put("qty", selectedRoomQty);
-                        bookingParams.put("eventType", "");
-                        bookingParams.put("gustName", name);
-                        bookingParams.put("gustContact", contact);
-
-                        Log.e("Booking Params", bookingParams.toString());
-
-                        //TODO booking api update
-                        bookingApi();
-
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage(R.string.loginMessage);
+                        builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                context.startActivity(new Intent(context.getApplicationContext(), Login.class));
+                                context.finish();
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.show();
                     }
+
+
 
                 }
             });
@@ -450,8 +487,17 @@ public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAd
 
 
                     } else {
-                        context.startActivity(new Intent(context.getApplicationContext(), Login.class));
-                        context.finish();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage(R.string.loginMessage);
+                        builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                context.startActivity(new Intent(context.getApplicationContext(), Login.class));
+                                context.finish();
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.show();
+
                     }
 
 

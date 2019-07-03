@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -127,20 +129,21 @@ public class HotelRoomAdapter extends RecyclerView.Adapter<HotelRoomAdapter.MyVi
             @Override
             public void onClick(View v) {
 
-                if(source.equals("room")) {
-                    Intent asd = new Intent(context, CategoryDetails.class);
-                    asd.putExtra("source", source);
-                    asd.putExtra("hotelId", hotelId);
-                    asd.putExtra("id", catIdList.get(position));
-                    asd.putExtra(Constants.bookingParams, bookingData);
-                    context.startActivity(asd);
-                } else {
-                    Intent asd = new Intent(context, BanuquetDetail.class);
-                    asd.putExtra("source", source);
-                    asd.putExtra("hotelId", hotelId);
-                    asd.putExtra("id", catIdList.get(position));
-                    context.startActivity(asd);
-                }
+                //TODO category details
+//                if(source.equals("room")) {
+//                    Intent asd = new Intent(context, CategoryDetails.class);
+//                    asd.putExtra("source", source);
+//                    asd.putExtra("hotelId", hotelId);
+//                    asd.putExtra("id", catIdList.get(position));
+//                    asd.putExtra(Constants.bookingParams, bookingData);
+//                    context.startActivity(asd);
+//                } else {
+//                    Intent asd = new Intent(context, BanuquetDetail.class);
+//                    asd.putExtra("source", source);
+//                    asd.putExtra("hotelId", hotelId);
+//                    asd.putExtra("id", catIdList.get(position));
+//                    context.startActivity(asd);
+//                }
 
             }
         });
@@ -149,7 +152,23 @@ public class HotelRoomAdapter extends RecyclerView.Adapter<HotelRoomAdapter.MyVi
             @Override
             public void onClick(View v) {
 
-                openBottomSheet(position);
+                if(Utility.getSharedPreferencesBoolean(context.getApplicationContext(), Constants.loginStatus)) {
+
+                    openBottomSheet(position);
+                } else {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage(R.string.loginMessage);
+                    builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            context.startActivity(new Intent(context.getApplicationContext(), Login.class));
+                            context.finish();
+                        }
+                    });
+                    builder.setCancelable(false);
+                    builder.show();
+
+                }
             }
         });
 
@@ -200,7 +219,6 @@ public class HotelRoomAdapter extends RecyclerView.Adapter<HotelRoomAdapter.MyVi
 
             dialog.setContentView(view);
             dialog.show();
-
 
             header.setText(catNameList.get(position));
 
@@ -283,7 +301,7 @@ public class HotelRoomAdapter extends RecyclerView.Adapter<HotelRoomAdapter.MyVi
                         nameET.setError("Please enter guest name");
                     } else if (contact.isEmpty()) {
                         contactET.setError("Please enter guest contact number");
-                    } else if (contact.length() != 10) {
+                    } else if (contact.length() != 13) {
                         contactET.setError("Please enter a valid guest contact number");
                     } else if (selectedCheckInDate.isEmpty()) {
                         Toast.makeText(context.getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
@@ -294,7 +312,6 @@ public class HotelRoomAdapter extends RecyclerView.Adapter<HotelRoomAdapter.MyVi
                     } else if (selectedRoomQty.isEmpty()) {
                         Toast.makeText(context.getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
                     } else {
-                        //TODO booking process
                         bookingParams.put("userId", Utility.getSharedPreferences(context.getApplicationContext(), Constants.userId));
                         bookingParams.put("hotelId", hotelId);
                         bookingParams.put("catId", catIdList.get(position));
@@ -309,7 +326,6 @@ public class HotelRoomAdapter extends RecyclerView.Adapter<HotelRoomAdapter.MyVi
 
                         Log.e("Booking Params", bookingParams.toString());
 
-                        //TODO booking api update
                         bookingApi();
 
                     }
@@ -402,36 +418,27 @@ public class HotelRoomAdapter extends RecyclerView.Adapter<HotelRoomAdapter.MyVi
                 public void onClick(View view) {
 
 
-                    if(Utility.getSharedPreferencesBoolean(context.getApplicationContext(), Constants.loginStatus)) {
-
-                        if (selectedCheckInDate.isEmpty()) {
-                            Toast.makeText(context.getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
-                        } else if (selectedCheckOutDate.isEmpty()) {
-                            Toast.makeText(context.getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
-                        } else if (eventTypeET.getText().toString().isEmpty()) {
-                            Toast.makeText(context.getApplicationContext(), "Please Enter Type Of Event", Toast.LENGTH_LONG).show();
-                        } else {
-                            //TODO booking process
-                            bookingParams.put("userId", Utility.getSharedPreferences(context.getApplicationContext(), Constants.userId));
-                            bookingParams.put("hotelId", hotelId);
-                            bookingParams.put("catId", catIdList.get(position));
-                            bookingParams.put("catType", "banquet");
-                            bookingParams.put("startDate", selectedCheckInDate);
-                            bookingParams.put("endDate", selectedCheckOutDate);
-                            bookingParams.put("eventType", eventTypeET.getText().toString());
-
-                            Log.e("Banquet Booking Params", bookingParams.toString());
-
-                            bookingApi();
-
-                        }
-
-
+                    if (selectedCheckInDate.isEmpty()) {
+                        Toast.makeText(context.getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
+                    } else if (selectedCheckOutDate.isEmpty()) {
+                        Toast.makeText(context.getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
+                    } else if (eventTypeET.getText().toString().isEmpty()) {
+                        Toast.makeText(context.getApplicationContext(), "Please Enter Type Of Event", Toast.LENGTH_LONG).show();
                     } else {
-                        context.startActivity(new Intent(context.getApplicationContext(), Login.class));
-                        context.finish();
-                    }
+                        //TODO booking process
+                        bookingParams.put("userId", Utility.getSharedPreferences(context.getApplicationContext(), Constants.userId));
+                        bookingParams.put("hotelId", hotelId);
+                        bookingParams.put("catId", catIdList.get(position));
+                        bookingParams.put("catType", "banquet");
+                        bookingParams.put("startDate", selectedCheckInDate);
+                        bookingParams.put("endDate", selectedCheckOutDate);
+                        bookingParams.put("eventType", eventTypeET.getText().toString());
 
+                        Log.e("Banquet Booking Params", bookingParams.toString());
+
+                        bookingApi();
+
+                    }
 
                 }
             });

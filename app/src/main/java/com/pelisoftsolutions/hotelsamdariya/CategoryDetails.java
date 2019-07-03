@@ -3,11 +3,13 @@ package com.pelisoftsolutions.hotelsamdariya;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -309,43 +311,60 @@ public class CategoryDetails extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    String name = nameET.getText().toString();
-                    String contact = contactET.getText().toString();
+                    if(Utility.getSharedPreferencesBoolean(getApplicationContext(), Constants.loginStatus)) {
 
-                    if(name.isEmpty()) {
-                        nameET.setError("Please enter guest name");
-                    } else if (contact.isEmpty()) {
-                        contactET.setError("Please enter guest contact number");
-                    } else if (contact.length() != 10) {
-                        contactET.setError("Please enter a valid guest contact number");
-                    } else if (selectedCheckInDate.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
-                    } else if (selectedCheckOutDate.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
-                    } else if (selectedPersonQty.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Please Select Number Of Person", Toast.LENGTH_LONG).show();
-                    } else if (selectedRoomQty.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
+                        String name = nameET.getText().toString();
+                        String contact = contactET.getText().toString();
+
+                        if(name.isEmpty()) {
+                            nameET.setError("Please enter guest name");
+                        } else if (contact.isEmpty()) {
+                            contactET.setError("Please enter guest contact number");
+                        } else if (contact.length() != 10) {
+                            contactET.setError("Please enter a valid guest contact number");
+                        } else if (selectedCheckInDate.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Please Select Check In First", Toast.LENGTH_LONG).show();
+                        } else if (selectedCheckOutDate.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Please Select Check Out First", Toast.LENGTH_LONG).show();
+                        } else if (selectedPersonQty.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Please Select Number Of Person", Toast.LENGTH_LONG).show();
+                        } else if (selectedRoomQty.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Please Select Number Of Room", Toast.LENGTH_LONG).show();
+                        } else {
+                            //TODO booking process
+                            bookingParams.put("userId", Utility.getSharedPreferences(getApplicationContext(), Constants.userId));
+                            bookingParams.put("hotelId", getIntent().getStringExtra("hotelId"));
+                            bookingParams.put("catId", getIntent().getStringExtra("id"));
+                            bookingParams.put("catType", "room");
+                            bookingParams.put("startDate", selectedCheckInDate);
+                            bookingParams.put("endDate", selectedCheckOutDate);
+                            bookingParams.put("pax", selectedPersonQty);
+                            bookingParams.put("qty", selectedRoomQty);
+                            bookingParams.put("eventType", "");
+                            bookingParams.put("gustName", name);
+                            bookingParams.put("gustContact", contact);
+
+                            Log.e("Booking Params", bookingParams.toString());
+
+                            //TODO booking api update
+                            bookingApi();
+
+                        }
+
                     } else {
-                        //TODO booking process
-                        bookingParams.put("userId", Utility.getSharedPreferences(getApplicationContext(), Constants.userId));
-                        bookingParams.put("hotelId", getIntent().getStringExtra("hotelId"));
-                        bookingParams.put("catId", getIntent().getStringExtra("id"));
-                        bookingParams.put("catType", "room");
-                        bookingParams.put("startDate", selectedCheckInDate);
-                        bookingParams.put("endDate", selectedCheckOutDate);
-                        bookingParams.put("pax", selectedPersonQty);
-                        bookingParams.put("qty", selectedRoomQty);
-                        bookingParams.put("eventType", "");
-                        bookingParams.put("gustName", name);
-                        bookingParams.put("gustContact", contact);
-
-                        Log.e("Booking Params", bookingParams.toString());
-
-                        //TODO booking api update
-                        bookingApi();
-
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CategoryDetails.this);
+                        builder.setMessage(R.string.loginMessage);
+                        builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivity(new Intent(getApplicationContext(), Login.class));
+                                finish();
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.show();
                     }
+
+
 
                 }
             });
@@ -461,8 +480,18 @@ public class CategoryDetails extends AppCompatActivity {
 
 
                     } else {
-                        startActivity(new Intent(getApplicationContext(), Login.class));
-                        finish();
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CategoryDetails.this);
+                        builder.setMessage(R.string.loginMessage);
+                        builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivity(new Intent(getApplicationContext(), Login.class));
+                                finish();
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.show();
+
                     }
 
 
