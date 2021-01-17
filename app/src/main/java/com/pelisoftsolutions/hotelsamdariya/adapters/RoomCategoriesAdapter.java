@@ -49,7 +49,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.internal.Util;
 
 public class RoomCategoriesAdapter extends RecyclerView.Adapter<RoomCategoriesAdapter.MyViewHolder> {
 
